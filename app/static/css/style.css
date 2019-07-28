@@ -1,0 +1,30 @@
+body {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.nav1 {
+  background-color: #fcfcfc;
+}
+
+.nav-social {
+  font-size: 40px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.linkedin_nav {
+  color: #0077B5;
+}
+
+.github_nav {
+  color: black;
+}
+
+.profile_pic {
+  height: 150px;
+  width: 190px;
+}
+
+.nav2 .navbar-nav .nav-link {
+  color: white;
+}

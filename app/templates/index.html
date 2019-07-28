@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/blog_breadcrumb.css') }}">
+{% endblock %}
+
+{% block title %}Index{% endblock %}
+
+{% block page_content %}
+  {% include "helpers/blog_breadcrumb.html" %}
+
+  <div class="row">
+
+    <!-- Main -->
+    <div class="col-8">
+      <div class="row">
+
+        <div class="col-lg-4 col-md-6">
+          <div class="card blog-card">
+            <img src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/main.jpeg') }}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <div class="text-center">
+                  <a href="#" class="btn btn-secondary">Read</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-4">
+      2 of 2
+    </div>
+  </div>
+
+
+
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/blog_breadcrumb.js') }}"></script>
+{% endblock %}

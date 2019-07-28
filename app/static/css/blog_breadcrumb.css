@@ -1,0 +1,16 @@
+.breadcrumb {
+  background-color: white;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+   content: "|";
+}
+
+.breadcrumb .active a {
+  border-bottom: 2px solid #343a40;
+  color: #343a40;
+}
+
+.breadcrumb a:hover {
+  text-decoration: none;
+}

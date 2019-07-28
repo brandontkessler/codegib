@@ -1,0 +1,25 @@
+# Virtual Environment
+venv/
+
+# Dev configuration
+dev_config.json
+
+# SQLite databases
+*.sqlite
+
+# Pycache
+*.pyc
+__pycache__/
+
+# Test
+.pytest_cache/
+.coverage
+htmlcov/
+
+
+dist/
+build/
+*.egg-info/
+
+# CSV Files
+*.csv

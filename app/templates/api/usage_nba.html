@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/player_name_dropdown.css') }}">
+{% endblock %}
+
+{% block title %}API Usage NBA{% endblock %}
+
+{% block page_content %}
+
+<h1>Using the NBA Stats API</h1>
+
+<div class="">
+  <h3>How to Use</h3>
+  <p>Using the API requires querying with a "player" parameter: </p>
+  <p>This must include firstname+lastname+position <strong>OR</strong> in some cases, firstinitial+lastname+position</p>
+</div>
+
+<div class="">
+  <h3>Examples</h3>
+
+  <div class="well">
+    <strong>Example: </strong>LeBron James
+    <p>Relative Path: '/api/nba_stats?player=LeBron+James+(F)'</p>
+  </div>
+
+  <div>
+    <strong>Example: </strong>Michael Kidd-Gilchrist
+    <p>Relative Path: '/api/nba_stats?player=M.+Kidd-Gilchrist+(SF)'</p>
+  </div>
+</div>
+
+
+<div class="player_dropdown">
+  <h3>Finding the Player Names</h3>
+
+  <p>
+    Click here for the entire list of all players as they are in the API:
+    <a href="{{ url_for('api.nba_players') }}">players</a>
+  </p>
+
+  <div>
+    <p>Or, all players can be found in the search below:</p>
+    <div class="autocomplete">
+      <input type="text" placeholder="Search Player">
+      <span class="close">Cancel</span>
+      <div class="dialog"></div>
+    </div>
+    <small>Just replace any spaces with a "+" in the url params</small>
+  </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/player_name_dropdown.js') }}" id="player_name_dropdown" players_list="{{ players }}"></script>
+{% endblock %}
