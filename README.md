@@ -1,5 +1,20 @@
 # Setting up the database
 
+### CREATE TABLES
+
+```
+$ flask shell
+
+>>> db.create_all()
+>>> exit()
+```
+
+### INITIALIZE MIGRATIONS
+
+```
+$ flask db init
+```
+
 
 ### NBA PLAYER STATS API SETUP
 

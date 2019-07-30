@@ -17,8 +17,17 @@ def check_confirmed(func):
 def check_admin(func):
     @wraps(func)
     def decorated_function(*args, **kwargs):
-        if current_user.admin is False:
+        if current_user.admin_priv is False:
             return redirect(url_for('main.forbidden'))
         return func(*args, **kwargs)
 
+    return decorated_function
+
+
+def check_blogger(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if current_user.blog_priv is False:
+            return redirect(url_for('main.forbidden'))
+        return func(*args, **kwargs)
     return decorated_function

@@ -16,7 +16,9 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(64), unique=True, index=True)
     password = db.Column(db.String(128), nullable=False)
     confirmed = db.Column(db.Boolean, default=False)
-    admin = db.Column(db.Boolean, default=False)
+    blog_priv = db.Column(db.Boolean, default=False)
+    admin_priv = db.Column(db.Boolean, default=False)
+    blogs = db.relationship('Blog', backref='blog_author', lazy='dynamic')
 
     def __repr__(self):
         return f"User('{self.email}')"
@@ -31,6 +33,7 @@ class Blog(db.Model):
     author = db.Column(db.String(50), default="Brandon Kessler")
     content = db.Column(db.Text, nullable=False)
     _tags = db.Column(db.String(128), default="all")
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     @property
     def tags(self):
@@ -65,7 +68,7 @@ class Blog(db.Model):
             print("ERROR THAT IS NOT A LIST")
 
     def __repr__(self):
-        return f"Blog by {self.author} with tags: {self.tags}"
+        return f"Blog about {self.title} with tags: {self.tags}"
 
 
 
