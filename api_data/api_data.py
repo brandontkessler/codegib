@@ -27,7 +27,7 @@ def date_converter(pd_series):
 
 
 ###########################################
-# NBA DATA
+# NBA STATS DATA
 def create_nba_stats_to_inject(path, db_schema):
     nba_df = df_from_directory(path)
     nba_df['date'] = date_converter(nba_df['date'])
@@ -59,6 +59,27 @@ def create_nba_stats_to_inject(path, db_schema):
             three_pts_made = row['three_pts_made'],
             three_pts_att = row['three_pts_att'],
             plus_minus = row['plus_minus']
+        )
+        objects.append(item)
+
+    return objects
+
+
+# NBA PLAYER INFO DATA
+def create_nba_player_info_to_inject(path, db_schema):
+    player_info_df = df_from_directory(path)
+
+    objects = []
+
+    for index, row in player_info_df.iterrows():
+        item = db_schema(
+            name = row['name'],
+            position = row['pos'],
+            age = row['age'],
+            height = row['height'],
+            weight = row['weight'],
+            college = row['college'],
+            salary = row['salary']
         )
         objects.append(item)
 

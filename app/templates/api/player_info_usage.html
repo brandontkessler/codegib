@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block page_content %}
+
+<h1>Using the NBA Player Info API</h1>
+
+<div class="">
+  <h3>How to Use</h3>
+  <p>Using the API requires querying with a "player" parameter: </p>
+  <p>This must include first and last name</p>
+</div>
+
+<div class="">
+  <h3>Examples</h3>
+
+  <div class="well">
+    <strong>Example: </strong>Giannis Antetokounmpo
+    <p>Relative Path: '/api/nba_player_info?player=Giannis Antetokounmpo'</p>
+  </div>
+
+  <div>
+    <strong>Example: </strong>Frank Mason III
+    <p>Relative Path: '/api/nba_player_info?player=Frank Mason III'</p>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -34,7 +34,9 @@ def register():
 
         flash('A confirmation email has been sent.', 'success')
         return redirect(url_for('main.index'))
-    return render_template('auth/register.html', title="Register", form=form)
+    return render_template('auth/register.html',
+                            title="Register",
+                            form=form)
 
 
 @auth.route("/confirm/<token>")
@@ -63,7 +65,8 @@ def confirm_email(token):
 def unconfirmed():
     if current_user.confirmed:
         return redirect(url_for('main.index'))
-    return render_template('auth/unconfirmed.html')
+    return render_template('auth/unconfirmed.html',
+                            title="Unconfirmed")
 
 
 @auth.route('/resend_confirmation')
@@ -96,7 +99,9 @@ def login():
         else:
             flash('Login Unsuccessful. Please check email and password',
                   'danger')
-    return render_template('auth/login.html', title="Login", form=form)
+    return render_template('auth/login.html',
+                            title="Login",
+                            form=form)
 
 
 @auth.route("/logout")

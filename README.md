@@ -1,15 +1,30 @@
 # Setting up the database
 
 
-### NBA API SETUP
+### NBA PLAYER STATS API SETUP
 
-Make sure the csv files are located in the api_data/nba directory.
+Make sure the csv files are located in the "api_data/nba/player_stats_2019" directory.
 
 ```
 $ flask shell
 
->>> from api_data.api_data import create_nba_stats_to_inject
->>> objects = create_nba_stats_to_inject('api_data/nba', NBA_Player_Stats)
+>>> from api_data.api_data import create_nba_stats_to_inject as p_stats
+>>> objects = p_stats('api_data/nba/player_stats_2019', NBA_Player_Stats)
+>>> db.session.add_all(objects)
+>>> db.session.commit()
+>>> exit()
+```
+
+
+### NBA PLAYER INFO API SETUP
+
+Make sure the csv files are located in the "api_data/nba/player_info" directory.
+
+```
+$ flask shell
+
+>>> from api_data.api_data import create_nba_player_info_to_inject as p_info
+>>> objects = p_info('api_data/nba/player_info', NBA_Player_Info)
 >>> db.session.add_all(objects)
 >>> db.session.commit()
 >>> exit()

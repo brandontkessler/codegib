@@ -5,8 +5,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/api.css') }}">
 {% endblock %}
 
-{% block title %}API Index{% endblock %}
-
 {% block page_content %}
 
 <h1>APIs</h1>
@@ -15,13 +13,13 @@
   <h3>NBA APIs</h3>
   <ul class="list-group">
     <li class="list-group-item list-group-item-action list-group-item-dark">
-      <a href="{{ url_for('api.usage_nba') }}">NBA API Usage</a>
+      <a href="{{ url_for('api.nba_players') }}">Player List API: All Players as Listed in Player Stats</a>
     </li>
     <li class="list-group-item list-group-item-action list-group-item-dark">
-      <a href="{{ url_for('api.nba_players') }}">Player List API: All Players</a>
+      <a href="{{ url_for('api.nba_stats_api_usage') }}">Player Stats by Game API</a>
     </li>
     <li class="list-group-item list-group-item-action list-group-item-dark">
-      <a href="{{ url_for('api.nba_stats_api', player='LeBron James (F)') }}">Player Stats API Example: LeBron James</a>
+      <a href="{{ url_for('api.nba_player_info_api_usage') }}">Player Info API</a>
     </li>
   </ul>
 </div>

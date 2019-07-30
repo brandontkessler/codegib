@@ -1,6 +1,7 @@
 from flask import current_app
 from app import db, login_manager
 from flask_login import UserMixin
+import datetime as dt
 
 
 @login_manager.user_loader
@@ -15,10 +16,62 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(64), unique=True, index=True)
     password = db.Column(db.String(128), nullable=False)
     confirmed = db.Column(db.Boolean, default=False)
+    admin = db.Column(db.Boolean, default=False)
 
     def __repr__(self):
         return f"User('{self.email}')"
 
+
+class Blog(db.Model):
+    __tablename__ = 'blog'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(128), unique=True, nullable=False)
+    date = db.Column(db.DateTime, default=dt.datetime.utcnow())
+    author = db.Column(db.String(50), default="Brandon Kessler")
+    content = db.Column(db.Text, nullable=False)
+    _tags = db.Column(db.String(128), default="all")
+
+    @property
+    def tags(self):
+        return [tag for tag in self._tags.split(';')]
+
+    @tags.setter
+    def tags(self, values):
+        if isinstance(values, list):
+            for tag in values:
+                self._tags += f";{tag}"
+        else:
+            print("ERROR THAT IS NOT A LIST")
+
+    def tag_adder(self, values):
+        if isinstance(values, list):
+            for tag in values:
+                self._tags += f";{tag}"
+        else:
+            print("ERROR THAT IS NOT A LIST")
+
+    def tag_remover(self, values):
+        if isinstance(values, list):
+            tags = [tag for tag in self._tags.split(';')]
+            tags.remove("all")
+            for tag_to_remove in values:
+                tags.remove(tag_to_remove)
+
+            self._tags = "all"
+            for tag in tags:
+                self._tags += f";{tag}"
+        else:
+            print("ERROR THAT IS NOT A LIST")
+
+    def __repr__(self):
+        return f"Blog by {self.author} with tags: {self.tags}"
+
+
+
+
+###################
+## API DATA SETS
 
 class NBA_Player_Stats(db.Model):
     __tablename__ = 'nba_player_stats'
@@ -50,3 +103,19 @@ class NBA_Player_Stats(db.Model):
 
     def __repr__(self):
         return f"NBA_Player(player: {self.name}, opponent: {self.opponent}, home: {self.home})"
+
+
+class NBA_Player_Info(db.Model):
+    __tablename__ = 'nba_player_info'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64))
+    position = db.Column(db.String(10))
+    age = db.Column(db.Integer)
+    height = db.Column(db.String(10))
+    weight = db.Column(db.String(10))
+    college = db.Column(db.String(10))
+    salary = db.Column(db.String(10))
+
+    def __repr__(self):
+        return f"NBA_Player_Info(player: {self.name}, age: {self.age}, salary: {self.salary})"

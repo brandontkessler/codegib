@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/player_name_dropdown.css') }}">
 {% endblock %}
 
-{% block title %}API Usage NBA{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block page_content %}
 
@@ -14,7 +14,7 @@
 <div class="">
   <h3>How to Use</h3>
   <p>Using the API requires querying with a "player" parameter: </p>
-  <p>This must include firstname+lastname+position <strong>OR</strong> in some cases, firstinitial+lastname+position</p>
+  <p>This must include first name, last name, and (position) <strong>OR</strong> in some cases, first initial, last name, and (position)</p>
 </div>
 
 <div class="">
@@ -22,12 +22,12 @@
 
   <div class="well">
     <strong>Example: </strong>LeBron James
-    <p>Relative Path: '/api/nba_stats?player=LeBron+James+(F)'</p>
+    <p>Relative Path: '/api/nba_stats?player=LeBron James (F)'</p>
   </div>
 
   <div>
     <strong>Example: </strong>Michael Kidd-Gilchrist
-    <p>Relative Path: '/api/nba_stats?player=M.+Kidd-Gilchrist+(SF)'</p>
+    <p>Relative Path: '/api/nba_stats?player=M. Kidd-Gilchrist (SF)'</p>
   </div>
 </div>
 
@@ -47,10 +47,14 @@
       <span class="close">Cancel</span>
       <div class="dialog"></div>
     </div>
-    <small>Just replace any spaces with a "+" in the url params</small>
   </div>
 
 </div>
+
+<br>
+<br>
+<br>
+<br>
 
 
 {% endblock %}
