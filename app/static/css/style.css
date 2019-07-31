@@ -12,11 +12,23 @@ body {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.linkedin_nav {
+.nav-social .nav-link:hover {
+  opacity: 0.6;
+}
+
+.gmail-nav, .gmail-nav:hover {
+  color: #E04839;
+}
+
+.linkedin-nav, .linkedin-nav:hover {
   color: #0077B5;
 }
 
-.github_nav {
+.github-nav, .github-nav:hover {
+  color: black;
+}
+
+.medium-nav, .medium-nav:hover {
   color: black;
 }
 

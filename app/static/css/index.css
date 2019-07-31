@@ -1,13 +1,44 @@
-.blog-card img {
-  height: 150px;
+.blog-card {
+  height: 180px;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.blog-card:hover {
+  text-decoration: none;
+  border-left: 3px solid black;
+  margin-left: -3px;
+}
+
+.card-cover {
+  width: 190px;
   object-fit: cover;
+  padding: 10px 15px 5px 15px;
+  float: left;
 }
 
 .card-body {
-  padding: 5px;
+  padding: 10px;
 }
 
-.card-body a {
-  padding: 2px 5px;
-  width: 50%;
+.card-title {
+  color: black;
+  margin-bottom: 0.5em;
+}
+
+.card-tags {
+  color: black;
+}
+
+.card-headline {
+  color: #363636;
+}
+
+.card-date {
+  color: gray;
+}
+
+.page_nav {
+  margin: auto;
 }

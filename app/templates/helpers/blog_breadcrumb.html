@@ -1,11 +1,14 @@
 <nav aria-label="breadcrumb">
   <ul class="breadcrumb">
     <li class="mr-2">Filter By:</li>
-    <li class="breadcrumb-item active"><a href="#">All</a></li>
-    <li class="breadcrumb-item"><a href="#">Python</a></li>
-    <li class="breadcrumb-item"><a href="#">Analysis</a></li>
-    <li class="breadcrumb-item"><a href="#">Mining</a></li>
-    <li class="breadcrumb-item"><a href="#">Scraping</a></li>
-    <li class="breadcrumb-item"><a href="#">Machine Learning</a></li>
+
+    {% for tag in sorted_tags %}
+      {% if tag == tag_filter.capitalize() %}
+      <li class="breadcrumb-item active"><a href="#">{{ tag }}</a></li>
+      {% else %}
+      <li class="breadcrumb-item"><a href="{{ url_for('main.index', page=1, tag_filter=tag) }}">{{ tag }}</a></li>
+      {% endif %}
+    {% endfor %}
+
   </ul>
 </nav>

@@ -31,16 +31,28 @@
     {% block navbar %}
     <nav class="navbar navbar-expand-sm pb-0 nav1">
       <div class="container">
+<!--
+        <h1 class="">BRANDON KESSLER</h1> -->
 
         <ul class="navbar-nav nav-social mx-auto">
           <li class="nav-item mr-3">
-            <a class="nav-link linkedin_nav" href="#">
+            <a class="nav-link gmail-nav" href="#">
+              <i class="far fa-envelope"></i>
+            </a>
+          </li>
+          <li class="nav-item mr-3">
+            <a class="nav-link linkedin-nav" href="#">
               <i class="fab fa-linkedin-in"></i>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link github_nav" href="#">
+          <li class="nav-item mr-3">
+            <a class="nav-link github-nav" href="#">
               <i class="fab fa-github"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link medium-nav" href="#">
+              <i class="fab fa-medium"></i>
             </a>
           </li>
         </ul>
@@ -55,6 +67,8 @@
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-3 nav2">
       <div class="container">
+        <a href="#" class="navbar-brand">BRANDONKESSLER</a>
+        <a class="navbar-brand">|</a>
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -64,8 +78,12 @@
               <a  class="nav-link" href="{{ url_for('main.index') }}">Blog</a>
             </li>
             <li class="nav-item">
+              <a  class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
               <a  class="nav-link" href="{{ url_for('api.api_index') }}">APIs</a>
             </li>
+
 
           </ul>
           <!-- <ul class="navbar-nav ml-auto">

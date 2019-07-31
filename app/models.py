@@ -32,8 +32,10 @@ class Blog(db.Model):
     date = db.Column(db.DateTime, default=dt.datetime.utcnow())
     author = db.Column(db.String(50), default="Brandon Kessler")
     content = db.Column(db.Text, nullable=False)
+    headline = db.Column(db.String(150), nullable=False, default="Please select a headline")
     _tags = db.Column(db.String(128), default="all")
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    likes = db.Column(db.Integer, default=0, nullable=False)
 
     @property
     def tags(self):
@@ -81,9 +83,9 @@ class NBA_Player_Stats(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date)
-    game_type = db.Column(db.String(10))
-    team = db.Column(db.String(10))
-    opponent = db.Column(db.String(3))
+    game_type = db.Column(db.String(128))
+    team = db.Column(db.String(128))
+    opponent = db.Column(db.String(50))
     home = db.Column(db.Boolean)
     name = db.Column(db.String(64))
     minutes = db.Column(db.Integer)
@@ -113,12 +115,12 @@ class NBA_Player_Info(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64))
-    position = db.Column(db.String(10))
-    age = db.Column(db.Integer)
-    height = db.Column(db.String(10))
-    weight = db.Column(db.String(10))
-    college = db.Column(db.String(10))
-    salary = db.Column(db.String(10))
+    position = db.Column(db.String(50))
+    age = db.Column(db.String(50))
+    height = db.Column(db.String(50))
+    weight = db.Column(db.String(50))
+    college = db.Column(db.String(50))
+    salary = db.Column(db.String(50))
 
     def __repr__(self):
         return f"NBA_Player_Info(player: {self.name}, age: {self.age}, salary: {self.salary})"

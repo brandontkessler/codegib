@@ -9,12 +9,6 @@ $ flask shell
 >>> exit()
 ```
 
-### INITIALIZE MIGRATIONS
-
-```
-$ flask db init
-```
-
 
 ### NBA PLAYER STATS API SETUP
 
@@ -41,6 +35,19 @@ $ flask shell
 >>> from api_data.api_data import create_nba_player_info_to_inject as p_info
 >>> objects = p_info('api_data/nba/player_info', NBA_Player_Info)
 >>> db.session.add_all(objects)
+>>> db.session.commit()
+>>> exit()
+```
+
+
+### USING AVAILABLE SEED DATA
+
+```
+$ flask shell
+
+>>> from seed import create_seed_users, create_seed_blogs
+>>> create_seed_users(db, User)
+>>> create_seed_blogs(db, Blog)
 >>> db.session.commit()
 >>> exit()
 ```

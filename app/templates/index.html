@@ -8,40 +8,50 @@
 {% block page_content %}
   {% include "helpers/blog_breadcrumb.html" %}
 
-  <div class="row">
+  <div class="row mt-4">
 
-    <!-- Main -->
-    <div class="col-8">
-      <div class="row">
 
-        <div class="col-lg-4 col-md-6">
-          <div class="card blog-card">
-            <img src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/main.jpeg') }}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h6 class="card-title">Card title</h6>
-              <small>
-                <button type="button" name="button">python</button>
-                <button type="button" name="button">analysis</button>
-                <button type="button" name="button">Mining</button>
-              </small>
-            </div>
-          </div>
-        </div>
+    {% for blog in blogs.items %}
 
+    <a href="#" class="mb-5 blog-card">
+
+      <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+
+      <div class="card-body">
+        <small class="card-date">Posted on: {{ blog.date }}</small>
+        <h4 class="card-title">{{ blog.title }}</h4>
+        <hr class="mt-0 mb-2 pt-0 pb-0">
+        <p class="card-headline mb-0">{{ blog.headline }}</p>
+        <small class="card-tags"> Tags:
+          {% for tag in blog.tags %}
+            {% if tag != 'all' %}
+              {% if tag != blog.tags[-1] %}
+              <span>{{ tag.capitalize() }},</span>
+              {% else %}
+              <span>{{ tag.capitalize() }}</span>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </small>
       </div>
+    </a>
+
+    {% endfor %}
+
+    <div class="page_nav mt-5">
+      {% for page_num in blogs.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+          {% if blogs.page == page_num %}
+              <a class="btn btn-info mb-4" href="{{ url_for('main.index', page=page_num, tag_filter=tag_filter) }}">{{ page_num }}</a>
+          {% else %}
+              <a class="btn btn-outline-info mb-4" href="{{ url_for('main.index', page=page_num, tag_filter=tag_filter) }}">{{ page_num }}</a>
+          {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+      {% endfor %}
     </div>
 
-    <!-- Sidebar -->
-    <div class="col-4">
-      SIDEBAR
-    </div>
   </div>
 
-
-
-
-{% endblock %}
-
-{% block javascript %}
-<script src="{{ url_for('static', filename='js/blog_breadcrumb.js') }}"></script>
 {% endblock %}
