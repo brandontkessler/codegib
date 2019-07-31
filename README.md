@@ -1,6 +1,6 @@
-# Setting up the database
+# SETTING UP THE DATABASE
 
-### CREATE TABLES
+## CREATE TABLES
 
 ```
 $ flask shell
@@ -9,8 +9,19 @@ $ flask shell
 >>> exit()
 ```
 
+## ADD STANDALONE API DATA TO DB
 
-### NBA PLAYER STATS API SETUP
+### Option 1: Use provided cli commands
+
+```
+$ flask add_api_data
+$ flask add_seed
+```
+
+
+### Option 2: Setup manually from flask shell
+
+##### NBA PLAYER STATS API SETUP
 
 Make sure the csv files are located in the "api_data/nba/player_stats_2019" directory.
 
@@ -25,7 +36,7 @@ $ flask shell
 ```
 
 
-### NBA PLAYER INFO API SETUP
+##### NBA PLAYER INFO API SETUP
 
 Make sure the csv files are located in the "api_data/nba/player_info" directory.
 
@@ -40,7 +51,7 @@ $ flask shell
 ```
 
 
-### USING AVAILABLE SEED DATA
+##### USING AVAILABLE SEED DATA
 
 ```
 $ flask shell
