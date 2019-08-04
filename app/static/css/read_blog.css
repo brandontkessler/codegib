@@ -1,0 +1,12 @@
+.blog-content {
+  text-align: justify;
+}
+
+.blog-headline {
+  text-align: justify;
+}
+
+.blog-content-container {
+  width: 90%;
+  margin: auto;
+}

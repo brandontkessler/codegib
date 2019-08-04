@@ -13,12 +13,12 @@
 
     {% for blog in blogs.items %}
 
-    <a href="#" class="mb-5 blog-card">
+    <a href="{{ url_for('main.read_blog', blog_title=blog.title) }}" class="mb-5 blog-card">
 
       <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
 
       <div class="card-body">
-        <small class="card-date">Posted on: {{ blog.date }}</small>
+        <small class="card-date">Posted on: {{ blog.date.strftime('%B, %d') }}</small>
         <h4 class="card-title">{{ blog.title }}</h4>
         <hr class="mt-0 mb-2 pt-0 pb-0">
         <p class="card-headline mb-0">{{ blog.headline }}</p>

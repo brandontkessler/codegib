@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/read_blog.css') }}">
+{% endblock %}
+
+{% block page_content %}
+
+  <div class="row mt-4">
+    <div class="">
+      <h1 class="mb-0">{{ blog.title }}</h1>
+      <small>Date posted: {{ blog.date.strftime("%B, %d") }}</small>
+      <h4 class="mt-4 blog-headline">{{ blog.headline }}</h4>
+      <br>
+
+      <div class="blog-content-container">
+        {% for paragraph in blog.content %}
+        <p class="blog-content">{{ paragraph }}</p>
+        {% endfor %}
+      </div>
+
+      <p>
+        <span class="mr-2">Tags:</span>
+        {% for tag in blog.tags %}
+        <a href="{{ url_for('main.index', page=1, tag_filter=tag) }}">{{ tag }}</a>
+        <span> | </span>
+        {% endfor %}
+      </p>
+
+    </div>
+
+  </div>
+
+{% endblock %}

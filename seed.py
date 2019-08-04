@@ -1,11 +1,11 @@
 def create_seed_users(db, user_model):
-    user1 = user_model(id=1, email='user1@test.com', password='seed',
+    user1 = user_model(email='user1@test.com', password='password',
         confirmed=True, admin_priv=True, blog_priv=True)
-    user2 = user_model(id=2, email='user2@test.com', password='seed',
+    user2 = user_model(email='user2@test.com', password='password',
         confirmed=True, admin_priv=False, blog_priv=True)
-    user3 = user_model(id=3, email='user3@test.com', password='seed',
+    user3 = user_model(email='user3@test.com', password='password',
         confirmed=True, admin_priv=False, blog_priv=False)
-    user4 = user_model(id=4, email='user4@test.com', password='seed',
+    user4 = user_model(email='user4@test.com', password='password',
         confirmed=True, admin_priv=False, blog_priv=False)
 
     for user in user1,user2,user3,user4:
@@ -18,7 +18,7 @@ def create_seed_blogs(db, blog_model):
         headline="""
             Bacon ipsum dolor amet alcatra frankfurter leberkas spare ribs. Shankle bresaola swine, jerky boudin spare.
         """,
-        content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
+        _content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
 
             Ham hock pork belly meatball, spare ribs porchetta shoulder short loin boudin pancetta venison strip steak short ribs prosciutto buffalo. Pig boudin picanha flank, fatback shankle biltong prosciutto brisket. Buffalo ribeye meatball ham hock ground round sirloin. Prosciutto short ribs ribeye pig corned beef alcatra biltong ground round tenderloin beef salami. Beef ribeye spare ribs salami, kielbasa ham hock pork chop pork brisket corned beef turkey frankfurter tenderloin shoulder prosciutto.
 
@@ -34,7 +34,7 @@ def create_seed_blogs(db, blog_model):
         headline="""
             Bacon ipsum dolor amet alcatra frankfurter leberkas spare ribs. Shankle bresaola swine, jerky boudin spare.
         """,
-        content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
+        _content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
 
             Ham hock pork belly meatball, spare ribs porchetta shoulder short loin boudin pancetta venison strip steak short ribs prosciutto buffalo. Pig boudin picanha flank, fatback shankle biltong prosciutto brisket. Buffalo ribeye meatball ham hock ground round sirloin. Prosciutto short ribs ribeye pig corned beef alcatra biltong ground round tenderloin beef salami. Beef ribeye spare ribs salami, kielbasa ham hock pork chop pork brisket corned beef turkey frankfurter tenderloin shoulder prosciutto.
 
@@ -46,7 +46,7 @@ def create_seed_blogs(db, blog_model):
         headline="""
             Bacon ipsum dolor amet alcatra frankfurter leberkas spare ribs. Shankle bresaola swine, jerky boudin spare.
         """,
-        content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
+        _content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
 
             Ham hock pork belly meatball, spare ribs porchetta shoulder short loin boudin pancetta venison strip steak short ribs prosciutto buffalo. Pig boudin picanha flank, fatback shankle biltong prosciutto brisket. Buffalo ribeye meatball ham hock ground round sirloin. Prosciutto short ribs ribeye pig corned beef alcatra biltong ground round tenderloin beef salami. Beef ribeye spare ribs salami, kielbasa ham hock pork chop pork brisket corned beef turkey frankfurter tenderloin shoulder prosciutto.
 
@@ -67,7 +67,7 @@ def create_seed_blogs(db, blog_model):
         headline="""
             Bacon ipsum dolor amet alcatra frankfurter leberkas spare ribs. Shankle bresaola swine, jerky boudin spare.
         """,
-        content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
+        _content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
 
             Ham hock pork belly meatball, spare ribs porchetta shoulder short loin boudin pancetta venison strip steak short ribs prosciutto buffalo. Pig boudin picanha flank, fatback shankle biltong prosciutto brisket. Buffalo ribeye meatball ham hock ground round sirloin. Prosciutto short ribs ribeye pig corned beef alcatra biltong ground round tenderloin beef salami. Beef ribeye spare ribs salami, kielbasa ham hock pork chop pork brisket corned beef turkey frankfurter tenderloin shoulder prosciutto.
 
@@ -84,7 +84,7 @@ def create_seed_blogs(db, blog_model):
         headline="""
             Bacon ipsum dolor amet alcatra frankfurter leberkas spare ribs. Shankle bresaola swine, jerky boudin spare.
         """,
-        content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
+        _content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
 
             Ham hock pork belly meatball, spare ribs porchetta shoulder short loin boudin pancetta venison strip steak short ribs prosciutto buffalo. Pig boudin picanha flank, fatback shankle biltong prosciutto brisket. Buffalo ribeye meatball ham hock ground round sirloin. Prosciutto short ribs ribeye pig corned beef alcatra biltong ground round tenderloin beef salami. Beef ribeye spare ribs salami, kielbasa ham hock pork chop pork brisket corned beef turkey frankfurter tenderloin shoulder prosciutto.
 
@@ -97,7 +97,7 @@ def create_seed_blogs(db, blog_model):
         headline="""
             Bacon ipsum dolor amet alcatra frankfurter leberkas spare ribs. Shankle bresaola swine, jerky boudin spare.
         """,
-        content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
+        _content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
 
             Ham hock pork belly meatball, spare ribs porchetta shoulder short loin boudin pancetta venison strip steak short ribs prosciutto buffalo. Pig boudin picanha flank, fatback shankle biltong prosciutto brisket. Buffalo ribeye meatball ham hock ground round sirloin. Prosciutto short ribs ribeye pig corned beef alcatra biltong ground round tenderloin beef salami. Beef ribeye spare ribs salami, kielbasa ham hock pork chop pork brisket corned beef turkey frankfurter tenderloin shoulder prosciutto.
 
@@ -118,7 +118,7 @@ def create_seed_blogs(db, blog_model):
         headline="""
             Bacon ipsum dolor amet alcatra frankfurter leberkas spare ribs. Shankle bresaola swine, jerky boudin spare.
         """,
-        content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
+        _content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
 
             Ham hock pork belly meatball, spare ribs porchetta shoulder short loin boudin pancetta venison strip steak short ribs prosciutto buffalo. Pig boudin picanha flank, fatback shankle biltong prosciutto brisket. Buffalo ribeye meatball ham hock ground round sirloin. Prosciutto short ribs ribeye pig corned beef alcatra biltong ground round tenderloin beef salami. Beef ribeye spare ribs salami, kielbasa ham hock pork chop pork brisket corned beef turkey frankfurter tenderloin shoulder prosciutto.
 
@@ -135,19 +135,19 @@ def create_seed_blogs(db, blog_model):
         headline="""
             Bacon ipsum dolor amet alcatra frankfurter leberkas spare ribs. Shankle bresaola swine, jerky boudin spare.
         """,
-        content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
+        _content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
 
             Ham hock pork belly meatball, spare ribs porchetta shoulder short loin boudin pancetta venison strip steak short ribs prosciutto buffalo. Pig boudin picanha flank, fatback shankle biltong prosciutto brisket. Buffalo ribeye meatball ham hock ground round sirloin. Prosciutto short ribs ribeye pig corned beef alcatra biltong ground round tenderloin beef salami. Beef ribeye spare ribs salami, kielbasa ham hock pork chop pork brisket corned beef turkey frankfurter tenderloin shoulder prosciutto.
 
             Turducken spare ribs ham hock, frankfurter sirloin cupim boudin pig. Meatloaf sausage picanha short ribs ham hock meatball short loin porchetta ribeye ham brisket beef ribs andouille. Porchetta brisket t-bone flank, shoulder leberkas ribeye venison frankfurter jowl pancetta sausage kevin pork drumstick. T-bone meatball shoulder, shank burgdoggen beef pastrami tail kevin landjaeger ground round. Bresaola beef ribs cupim prosciutto shoulder pastrami, shankle sirloin. Turkey brisket cupim beef ribs pork loin shoulder meatloaf andouille. Bresaola meatloaf tenderloin ribeye pastrami chuck short loin venison short ribs pork belly hamburger ball tip picanha.
         """,
-        _tags='all;python;mining;other',
+        tags='python, mining, other',
         user_id=2)
     blog9 = blog_model(title="9 Blogasdf",
         headline="""
             Bacon ipsum dolor amet alcatra frankfurter leberkas spare ribs. Shankle bresaola swine, jerky boudin spare.
         """,
-        content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
+        _content="""Bacon ipsum dolor amet shank jerky porchetta pork belly. Kielbasa sirloin chuck burgdoggen. Leberkas tongue ground round porchetta t-bone tenderloin ball tip pork belly. Filet mignon andouille tongue turkey, shoulder tenderloin frankfurter kielbasa tail landjaeger biltong bacon bresaola salami.
 
             Ham hock pork belly meatball, spare ribs porchetta shoulder short loin boudin pancetta venison strip steak short ribs prosciutto buffalo. Pig boudin picanha flank, fatback shankle biltong prosciutto brisket. Buffalo ribeye meatball ham hock ground round sirloin. Prosciutto short ribs ribeye pig corned beef alcatra biltong ground round tenderloin beef salami. Beef ribeye spare ribs salami, kielbasa ham hock pork chop pork brisket corned beef turkey frankfurter tenderloin shoulder prosciutto.
 
@@ -161,7 +161,7 @@ def create_seed_blogs(db, blog_model):
 
             Turducken spare ribs ham hock, frankfurter sirloin cupim boudin pig. Meatloaf sausage picanha short ribs ham hock meatball short loin porchetta ribeye ham brisket beef ribs andouille. Porchetta brisket t-bone flank, shoulder leberkas ribeye venison frankfurter jowl pancetta sausage kevin pork drumstick. T-bone meatball shoulder, shank burgdoggen beef pastrami tail kevin landjaeger ground round. Bresaola beef ribs cupim prosciutto shoulder pastrami, shankle sirloin. Turkey brisket cupim beef ribs pork loin shoulder meatloaf andouille. Bresaola meatloaf tenderloin ribeye pastrami chuck short loin venison short ribs pork belly hamburger ball tip picanha.
         """,
-        _tags='all;scraping;analysis',
+        tags='scraping, analysis',
         user_id=1)
 
     for blog in blog1,blog2,blog3,blog3,blog4,blog5,blog6,blog7,blog8,blog9:

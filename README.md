@@ -1,6 +1,17 @@
 # SETTING UP THE DATABASE
 
-## CREATE TABLES
+## Create the database:
+
+Using postgres:
+
+```
+$ psql postgres -U <username>
+
+=> CREATE DATABASE <db name>;
+=> \q
+```
+
+## Create Tables
 
 ```
 $ flask shell
@@ -9,19 +20,23 @@ $ flask shell
 >>> exit()
 ```
 
-## ADD STANDALONE API DATA TO DB
+### ADD STANDALONE API DATA AND/OR SEED DATA TO DB
 
-### Option 1: Use provided cli commands
+To do this, we can use two options. The preferred option is using the provided CLI commands directly in the terminal. Otherwise we can manually load the data through flask shell.
+
+#### Option 1: Use provided cli commands
 
 ```
-$ flask add_api_data
-$ flask add_seed
+$ flask add_api_stats
+$ flask add_api_info
+$ flask add_seed_users
+$ flask add_seed_blogs
 ```
 
 
-### Option 2: Setup manually from flask shell
+#### Option 2: Setup manually from flask shell
 
-##### NBA PLAYER STATS API SETUP
+**NBA PLAYER STATS API SETUP:**
 
 Make sure the csv files are located in the "api_data/nba/player_stats_2019" directory.
 
@@ -36,7 +51,7 @@ $ flask shell
 ```
 
 
-##### NBA PLAYER INFO API SETUP
+**NBA PLAYER INFO API SETUP:**
 
 Make sure the csv files are located in the "api_data/nba/player_info" directory.
 
@@ -51,7 +66,7 @@ $ flask shell
 ```
 
 
-##### USING AVAILABLE SEED DATA
+**USING AVAILABLE SEED DATA:**
 
 ```
 $ flask shell
@@ -62,3 +77,40 @@ $ flask shell
 >>> db.session.commit()
 >>> exit()
 ```
+
+
+---
+
+# UPDATING SCHEMAS/DATABASE
+
+This does not use Alembic for migrations so changes must be updated manually. Using a postgres database, we can make changes to our models and update directly against the database:
+
+**Example using Postgres as database:**
+
+Start by adding the column to the tabe in the database directly through psql:
+
+```
+$ psql postgres -U <username>
+
+=> ALTER TABLE <table name>
+-> ADD COLUMN <column name>
+-> <type (VARCHAR, INTEGER, etc.)> <(optional) NOT NULL>
+-> DEFAULT <default value>;
+```
+
+*Note:* A default value must be included if using 'NOT NULL', otherwise a column that requires a value will try to be created without one.
+
+
+Next, we can update the Flask model to include the changes:
+
+```
+class Model_to_Update(db.Model):
+
+    ...
+
+    <column name> = db.Column(db.<Integer>, nullable=<False>, <default=0>)
+
+    ...
+```
+
+Now in the terminal we can restart the app with `$ flask run` and the database will be working correctly.

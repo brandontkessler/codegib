@@ -1,5 +1,5 @@
 from flask import current_app
-from app import db, login_manager
+from app import db, login_manager, bcrypt
 from flask_login import UserMixin
 import datetime as dt
 
@@ -14,11 +14,24 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True, index=True)
-    password = db.Column(db.String(128), nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
     confirmed = db.Column(db.Boolean, default=False)
     blog_priv = db.Column(db.Boolean, default=False)
     admin_priv = db.Column(db.Boolean, default=False)
     blogs = db.relationship('Blog', backref='blog_author', lazy='dynamic')
+
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = bcrypt\
+            .generate_password_hash(password)\
+            .decode('utf-8')
+
+    def verify_password(self, password):
+        return bcrypt.check_password_hash(self.password_hash, password)
 
     def __repr__(self):
         return f"User('{self.email}')"
@@ -31,43 +44,47 @@ class Blog(db.Model):
     title = db.Column(db.String(128), unique=True, nullable=False)
     date = db.Column(db.DateTime, default=dt.datetime.utcnow())
     author = db.Column(db.String(50), default="Brandon Kessler")
-    content = db.Column(db.Text, nullable=False)
+    _content = db.Column(db.Text, nullable=False)
     headline = db.Column(db.String(150), nullable=False, default="Please select a headline")
-    _tags = db.Column(db.String(128), default="all")
+    _tags = db.Column(db.String(128))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    likes = db.Column(db.Integer, default=0, nullable=False)
+
+
+    @property
+    def user(self):
+        return self.user_id
 
     @property
     def tags(self):
         return [tag for tag in self._tags.split(';')]
 
     @tags.setter
-    def tags(self, values):
-        if isinstance(values, list):
-            for tag in values:
-                self._tags += f";{tag}"
-        else:
-            print("ERROR THAT IS NOT A LIST")
+    def tags(self, tags):
+        split_tags = [tag.strip() for tag in tags.split(",")]
+        self._tags = "all"
+        for tag in split_tags:
+            self._tags += f";{tag.lower()}"
 
-    def tag_adder(self, values):
-        if isinstance(values, list):
-            for tag in values:
-                self._tags += f";{tag}"
-        else:
-            print("ERROR THAT IS NOT A LIST")
+    def tag_adder(self, new_tag):
+        if new_tag not in self._tags:
+            self._tags += f";{new_tag.lower()}"
 
-    def tag_remover(self, values):
-        if isinstance(values, list):
-            tags = [tag for tag in self._tags.split(';')]
-            tags.remove("all")
-            for tag_to_remove in values:
-                tags.remove(tag_to_remove)
+    def tag_remover(self, tags):
+        split_tags = [tag for tag in self._tags.split(';')]
+        split_tags.remove("all")
+        for tag_to_remove in split_tags:
+            split_tags.remove(tag_to_remove)
 
-            self._tags = "all"
-            for tag in tags:
-                self._tags += f";{tag}"
-        else:
-            print("ERROR THAT IS NOT A LIST")
+        for tag in split_tags:
+            self._tags = "all;" + f";{tag}"
+
+
+    @property
+    def content(self):
+        return [paragraph for paragraph in self._content.split('\n')]
+
+
+
 
     def __repr__(self):
         return f"Blog about {self.title} with tags: {self.tags}"
