@@ -79,13 +79,6 @@ class Blog(db.Model):
             self._tags = "all;" + f";{tag}"
 
 
-    @property
-    def content(self):
-        return [paragraph for paragraph in self._content.split('\n')]
-
-
-
-
     def __repr__(self):
         return f"Blog about {self.title} with tags: {self.tags}"
 

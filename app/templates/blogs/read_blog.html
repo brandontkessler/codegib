@@ -14,9 +14,7 @@
       <br>
 
       <div class="blog-content-container">
-        {% for paragraph in blog.content %}
-        <p class="blog-content">{{ paragraph }}</p>
-        {% endfor %}
+        
       </div>
 
       <p>
@@ -31,4 +29,8 @@
 
   </div>
 
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/read_blog.js') }}" id="blog_content" blog_content="{{ blog._content }}"></script>
 {% endblock %}

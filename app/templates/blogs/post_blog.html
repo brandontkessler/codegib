@@ -9,6 +9,8 @@
 
 <div id="javascript-error-check"></div>
 
+<button type="button" class="btn-lg btn-outline-secondary mb-3" id="blog-viewer_btn">Blog Viewer</button>
+
 <form action="" method="POST" id="blog-post-form">
   {{ form.hidden_tag() }}
   <legend class="border-bottom mb-4">Post a Blog</legend>
@@ -18,7 +20,7 @@
   </div>
   <div class="form-group">
     {{ form.author.label() }}
-    {{ form.author(class="form-control") }}
+    {{ form.author(class="form-control blog-author") }}
   </div>
   <div class="form-group">
     {{ form.headline.label() }}
@@ -26,20 +28,38 @@
   </div>
   <div class="form-group">
     {{ form.content.label() }}
-    {{ form.content(class="form-control blog-content", rows=20) }}
+    {{ form.content(class="form-control", id="blog-content", rows=20) }}
   </div>
   <div class="form-group">
     {{ form.tags.label() }}
-    {{ form.tags(class="form-control") }}
+    {{ form.tags(class="form-control blog-tags") }}
   </div>
   <div class="form-group">
+    <p class="mt-5">Make sure to view the post before submitting to make sure it looks the way you want!</p>
     {{ form.submit(class="btn btn-outline-info") }}
   </div>
 </form>
 
 
+<div class="row mt-4 blog_viewer">
+  <div class="">
+    <h1 class="mb-0" id="viewer_title"></h1>
+    <small id="viewer_date"></small>
+    <h4 class="mt-4 blog-headline" id="viewer_headline"></h4>
+    <br>
+
+    <div class="blog-content-container" id="viewer_content">
+
+    </div>
+
+  </div>
+
+</div>
+
+
 {% endblock %}
 
 {% block javascript %}
-<script src="{{ url_for('static', filename='js/post_blog.js') }}" id="blog_titles" blog_titles="{{ blogs }}"></script>
+<script src="{{ url_for('static', filename='js/post_blog.js') }}" id="post_blog_js" blog_titles="{{ blogs }}"></script>
+
 {% endblock %}

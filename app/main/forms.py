@@ -8,7 +8,7 @@ class BlogPostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     author = StringField('Author (optional)')
     headline = TextAreaField('Headline', validators=[Length(max=200)])
-    content = TextAreaField('Content', validators=[Length(max=10000)])
+    content = TextAreaField('Content (requires html script; all image srcs must begin with "/static/img/" ... then complete route)', validators=[Length(max=10000)])
     tags = StringField('Tags - Separate tags with commas (food, dogs, python)',
         validators=[Length(max=200)])
 

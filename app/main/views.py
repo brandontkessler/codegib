@@ -48,18 +48,12 @@ def post_blog():
     form = BlogPostForm()
 
     if form.validate_on_submit(): # For valid post request
-        content = [
-            par.strip() for par in form.content.data.strip()\
-            .replace("\r", "").split("\n") if par != ""
-        ]
-        content = ';'.join(content)
-
         blog = Blog(
             title=form.title.data.strip(),
             author=form.author.data.strip() or 'Brandon Kessler',
-            _content=content,
+            _content=form.content.data,
             headline=form.headline.data.strip(),
-            tags=tags,
+            tags=form.tags.data,
             user_id=current_user.id
         )
 
@@ -73,14 +67,6 @@ def post_blog():
     blogs = [blog[0].lower() for blog in Blog.query.with_entities(Blog.title)]
 
     return render_template('blogs/post_blog.html', title="Post a Blog", form=form, blogs=blogs)
-
-
-@main.route("/secret")
-@login_required
-@check_confirmed
-@check_admin
-def secret():
-    return "SECRET PAGE"
 
 
 

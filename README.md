@@ -11,6 +11,8 @@ $ psql postgres -U <username>
 => \q
 ```
 
+Note that you should create a test database as well...
+
 ## Create Tables
 
 ```
