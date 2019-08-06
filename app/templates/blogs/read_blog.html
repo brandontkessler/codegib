@@ -6,7 +6,12 @@
 
 {% block page_content %}
 
+  {% if current_user.blog_priv %}
+    <a class="btn-lg btn-secondary" href="{{ url_for('main.edit_blog', blog_title=blog.title) }}" id="edit-btn">Edit</a>
+  {% endif %}
+
   <div class="row mt-4">
+
     <div class="">
       <h1 class="mb-0">{{ blog.title }}</h1>
       <small>Date posted: {{ blog.date.strftime("%B, %d") }}</small>
@@ -14,12 +19,12 @@
       <br>
 
       <div class="blog-content-container">
-        
+
       </div>
 
       <p>
         <span class="mr-2">Tags:</span>
-        {% for tag in blog.tags %}
+        {% for tag in blog.tags.split(", ") %}
         <a href="{{ url_for('main.index', page=1, tag_filter=tag) }}">{{ tag }}</a>
         <span> | </span>
         {% endfor %}

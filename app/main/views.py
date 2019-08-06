@@ -24,10 +24,9 @@ def index():
                     .paginate(page=page, per_page=6)
 
     # Identify and sort tags by total count
-    all_tag_list = [tag.capitalize() for blog in all_blogs.all() for tag in blog.tags]
+    all_tag_list = [tag.strip() for blog in all_blogs.all() for tag in blog.tags.strip().split(",")]
     all_tags = {tag: all_tag_list.count(tag) for tag in all_tag_list}
     sorted_tags = sorted(all_tags, key=lambda k: all_tags[k], reverse=True)
-
 
     return render_template('index.html', title="Home Blog", blogs=blogs,
                             sorted_tags=sorted_tags, tag_filter=tag_filter)
@@ -67,6 +66,29 @@ def post_blog():
     blogs = [blog[0].lower() for blog in Blog.query.with_entities(Blog.title)]
 
     return render_template('blogs/post_blog.html', title="Post a Blog", form=form, blogs=blogs)
+
+
+@main.route('/blog/<blog_title>/edit', methods=['GET', 'POST'])
+@login_required
+@check_confirmed
+@check_blogger
+def edit_blog(blog_title):
+    form = BlogPostForm()
+    blog = Blog.query.filter_by(title=blog_title).first_or_404()
+
+    if form.validate_on_submit(): # For valid post request
+        blog.title=form.title.data.strip()
+        blog.author=form.author.data.strip() or "Brandon Kessler"
+        blog._content=form.content.data
+        blog.headline=form.headline.data.strip()
+        blog.tags=form.tags.data
+
+        db.session.commit()
+
+        flash('Your blog has been edited.', 'success')
+        return redirect(url_for('main.index'))
+
+    return render_template('blogs/edit_blog.html', title="Edit a Blog", form=form, blog=blog)
 
 
 

@@ -22,17 +22,7 @@
         <h4 class="card-title">{{ blog.title }}</h4>
         <hr class="mt-0 mb-2 pt-0 pb-0">
         <p class="card-headline mb-0">{{ blog.headline }}</p>
-        <small class="card-tags"> Tags:
-          {% for tag in blog.tags %}
-            {% if tag != 'all' %}
-              {% if tag != blog.tags[-1] %}
-              <span>{{ tag.capitalize() }},</span>
-              {% else %}
-              <span>{{ tag.capitalize() }}</span>
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </small>
+        <small class="card-tags"> Tags: {{ blog.tags }}</small>
       </div>
     </a>
 

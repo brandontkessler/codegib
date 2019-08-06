@@ -56,7 +56,8 @@ class Blog(db.Model):
 
     @property
     def tags(self):
-        return [tag for tag in self._tags.split(';')]
+        tags = [tag.capitalize() for tag in self._tags.split(';')]
+        return ", ".join(tags)
 
     @tags.setter
     def tags(self, tags):

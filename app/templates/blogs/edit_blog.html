@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/post_blog.css') }}">
+{% endblock %}
+
+
+{% block page_content %}
+
+<div id="javascript-error-check"></div>
+
+<button type="button" class="btn-lg btn-outline-secondary mb-3" id="blog-viewer_btn">Blog Viewer</button>
+
+<form action="" method="POST" id="blog-post-form">
+  {{ form.hidden_tag() }}
+  <legend class="border-bottom mb-4">Edit a Blog</legend>
+  <div class="form-group">
+    {{ form.title.label() }}
+    {{ form.title(class="form-control", id="blog-title", value=blog.title) }}
+  </div>
+  <div class="form-group">
+    {{ form.author.label() }}
+    {{ form.author(class="form-control blog-author", value=blog.author) }}
+  </div>
+  <div class="form-group">
+    {{ form.headline.label() }}
+    {{ form.headline(class="form-control blog-headline") }}
+  </div>
+  <div class="form-group">
+    {{ form.content.label() }}
+    {{ form.content(class="form-control", id="blog-content", rows=20) }}
+  </div>
+  <div class="form-group">
+    {{ form.tags.label() }}
+    {{ form.tags(class="form-control blog-tags", value=blog.tags.partition("All, ")[2]) }}
+  </div>
+  <div class="form-group">
+    <p class="mt-5">Make sure to view the post before submitting to make sure it looks the way you want!</p>
+    {{ form.submit(class="btn btn-outline-info") }}
+  </div>
+</form>
+
+
+<div class="row mt-4 blog_viewer">
+  <div class="">
+    <h1 class="mb-0" id="viewer_title"></h1>
+    <small id="viewer_date"></small>
+    <h4 class="mt-4 blog-headline" id="viewer_headline"></h4>
+    <br>
+
+    <div class="blog-content-container" id="viewer_content">
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/post_blog.js') }}" id="post_blog_js" blog_titles="{{ blogs }}"></script>
+<script src="{{ url_for('static', filename='js/edit_blog.js') }}" id="blog_content" blog_content="{{ blog._content }}", blog_headline="{{ blog.headline }}"></script>
+{% endblock %}
