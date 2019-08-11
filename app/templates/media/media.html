@@ -11,38 +11,123 @@
   </div>
 
   <div class="container">
-    <div class="row mt-4">
-      {% for blog in blogs.items %}
-
-      <a href="{{ url_for('media.read_blog', blog_title=blog.title) }}" class="mb-5 blog-card">
-
-        <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
-
-        <div class="card-body">
-          <small class="card-date">Posted on: {{ blog.date.strftime('%B, %d') }}</small>
-          <h4 class="card-title">{{ blog.title }}</h4>
-          <hr class="mt-0 mb-2 pt-0 pb-0">
-          <p class="card-headline mb-0">{{ blog.headline }}</p>
+    {% if blogs|length > 5 %}
+      <div class="row first-blog-row">
+        <div class="col-sm-8 mb-5">
+          <a href="{{ url_for('media.read_blog', blog_title=blogs[0].title) }}" class="row main-card blog-card">
+            <div class="col-6">
+              <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+            </div>
+            <div class="col-6">
+              <div class="card-body">
+                <small class="card-date">Posted on: {{ blogs[0].date.strftime('%B, %d') }}</small>
+                <h4 class="card-title">{{ blogs[0].title }}</h4>
+                <hr class="mt-0 mb-2 pt-0 pb-0">
+                <p class="card-headline mb-0">{{ blogs[0].headline }}</p>
+              </div>
+            </div>
+          </a>
         </div>
-      </a>
+        <div class="col-sm-4">
+          <div class="row small-cards">
+            <div class="col-12">
+              <a href="{{ url_for('media.read_blog', blog_title=blogs[1].title) }}" class="row blog-card">
+                <div class="col-4">
+                  <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+                </div>
+                <div class="col-8">
+                  <div class="card-body">
+                    <small class="card-date">Posted on: {{ blogs[1].date.strftime('%B, %d') }}</small>
+                    <h5 class="card-title">{{ blogs[1].title }}</h5>
+                  </div>
+                </div>
+              </a>
+              <a href="{{ url_for('media.read_blog', blog_title=blogs[2].title) }}" class="row blog-card mt-5">
+                <div class="col-4">
+                  <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+                </div>
+                <div class="col-8">
+                  <div class="card-body">
+                    <small class="card-date">Posted on: {{ blogs[2].date.strftime('%B, %d') }}</small>
+                    <h5 class="card-title">{{ blogs[2].title }}</h5>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      {% endfor %}
+      <div class="row second-blog-row">
+        <div class="col-6">
+          <a href="{{ url_for('media.read_blog', blog_title=blogs[3].title) }}" class="row blog-card">
+            <div class="col-4">
+              <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+            </div>
+            <div class="col-8">
+              <div class="card-body">
+                <small class="card-date">Posted on: {{ blogs[3].date.strftime('%B, %d') }}</small>
+                <h4 class="card-title">{{ blogs[3].title }}</h4>
+                <hr class="mt-0 mb-2 pt-0 pb-0">
+                <p class="card-headline mb-0">{{ blogs[3].headline }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6">
+          <a href="{{ url_for('media.read_blog', blog_title=blogs[4].title) }}" class="row blog-card">
+            <div class="col-4">
+              <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+            </div>
+            <div class="col-8">
+              <div class="card-body">
+                <small class="card-date">Posted on: {{ blogs[4].date.strftime('%B, %d') }}</small>
+                <h4 class="card-title">{{ blogs[4].title }}</h4>
+                <hr class="mt-0 mb-2 pt-0 pb-0">
+                <p class="card-headline mb-0">{{ blogs[4].headline }}</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
 
-      <div class="page_nav mt-5">
-        {% for page_num in blogs.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-          {% if page_num %}
-            {% if blogs.page == page_num %}
-                <a class="btn btn-info mb-4" href="{{ url_for('media.media_index', page=page_num, tag_filter=tag_filter) }}">{{ page_num }}</a>
-            {% else %}
-                <a class="btn btn-outline-info mb-4" href="{{ url_for('media.media_index', page=page_num, tag_filter=tag_filter) }}">{{ page_num }}</a>
-            {% endif %}
-          {% else %}
-              ...
-          {% endif %}
+      <div class="remaining-blogs">
+        {% for blog in blogs[5:] %}
+        <a href="{{ url_for('media.read_blog', blog_title=blog.title) }}" class="row remaining-blog-card blog-card">
+          <div class="col-4">
+            <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <small class="card-date">Posted on: {{ blog.date.strftime('%B, %d') }}</small>
+              <h4 class="card-title">{{ blog.title }}</h4>
+              <hr class="mt-0 mb-2 pt-0 pb-0">
+              <p class="card-headline mb-0">{{ blog.headline }}</p>
+            </div>
+          </div>
+        </a>
         {% endfor %}
       </div>
 
-    </div>
+    {% else %}
+      <div class="remaining-blogs">
+        {% for blog in blogs %}
+        <a href="{{ url_for('media.read_blog', blog_title=blog.title) }}" class="row remaining-blog-card blog-card">
+          <div class="col-4">
+            <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+          </div>
+          <div class="col-8">
+            <div class="card-body">
+              <small class="card-date">Posted on: {{ blog.date.strftime('%B, %d') }}</small>
+              <h4 class="card-title">{{ blog.title }}</h4>
+              <hr class="mt-0 mb-2 pt-0 pb-0">
+              <p class="card-headline mb-0">{{ blog.headline }}</p>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 
 

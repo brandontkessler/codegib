@@ -13,15 +13,13 @@ media = Blueprint('media', __name__)
 @media.route('/', methods=['GET', 'POST'])
 def media_index():
     # Query Params
-    page = request.args.get('page', 1, type=int)
     tag_filter = request.args.get('tag_filter', 'all', type=str)
 
     # Query all blogs
     all_blogs = Blog.query.order_by(Blog.date.desc())
 
     # Filter by query params
-    blogs = all_blogs.filter(Blog._tags.ilike(f"%{tag_filter}%"))\
-                    .paginate(page=page, per_page=6)
+    blogs = all_blogs.filter(Blog._tags.ilike(f"%{tag_filter}%")).all()
 
     # Identify and sort tags by total count
     all_tag_list = [tag.strip() for blog in all_blogs.all() for tag in blog.tags.strip().split(",")]
