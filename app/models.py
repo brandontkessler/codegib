@@ -84,6 +84,18 @@ class Blog(db.Model):
         return f"Blog about {self.title} with tags: {self.tags}"
 
 
+class Carousel(db.Model):
+    __tablename__ = 'carousel'
+
+    id = db.Column(db.Integer, primary_key=True)
+    img_path = db.Column(db.String(100), nullable=False)
+    url = db.Column(db.String(250), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    author = db.Column(db.String(100), nullable=False)
+    source = db.Column(db.String(100), nullable=False)
+
+    def __repr__(self):
+        return f"A carousel, featured article titled: {self.title}"
 
 
 ###################

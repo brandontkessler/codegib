@@ -85,11 +85,11 @@ $ flask shell
 
 # UPDATING SCHEMAS/DATABASE
 
-This does not use Alembic for migrations so changes must be updated manually. Using a postgres database, we can make changes to our models and update directly against the database:
+This does not use Alembic for migrations so changes must be updated manually. Using a postgresql database, we can make changes to our models and update directly against the database:
 
-**Example using Postgres as database:**
+**Example using PostgresQL as database management:**
 
-Start by adding the column to the tabe in the database directly through psql:
+Start by adding the column to the table in the database directly through psql:
 
 ```
 $ psql postgres -U <username>
@@ -116,3 +116,30 @@ class Model_to_Update(db.Model):
 ```
 
 Now in the terminal we can restart the app with `$ flask run` and the database will be working correctly.
+
+
+
+# FEATURED ARTICLES
+
+## The carousel
+
+The carousel content is managed through a table called carousel. It does not only include CodeGib content, but also includes external. Therefore, the table does not contain a foreign key and is not linked to other tables.
+
+Images for these articles are stored under 'static/img/carousel'.
+
+These must be updated manually. After the database is created, these can be added through the shell command (similar to the seed/api data) with below:
+
+
+**LOADING INITIAL CAROUSEL ARTICLES:**
+
+```
+$ flask add_initial_carousel_items
+```
+
+When adding carousel articles, if using articles from CodeGib, the url should only include the name of the article itself and the source must be 'CodeGib'.
+
+
+
+## Top 3 on Homepage
+
+The top 3 articles that are featured on the homepage are chosen manually. This can be changed by altering the index route and selecting a new blog to replace the ones currently selected.

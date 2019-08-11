@@ -15,6 +15,10 @@
   display: block !important;
 }
 
+.carousel-caption {
+  background-color: rgba(0,0,0,0.4);
+}
+
 .card {
   height: 300px;
   overflow: hidden;
