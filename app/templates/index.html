@@ -1,47 +1,82 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/blog_breadcrumb.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 {% endblock %}
 
 {% block page_content %}
-  {% include "helpers/blog_breadcrumb.html" %}
-
-  <div class="row mt-4">
 
 
-    {% for blog in blogs.items %}
-
-    <a href="{{ url_for('main.read_blog', blog_title=blog.title) }}" class="mb-5 blog-card">
-
-      <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
-
-      <div class="card-body">
-        <small class="card-date">Posted on: {{ blog.date.strftime('%B, %d') }}</small>
-        <h4 class="card-title">{{ blog.title }}</h4>
-        <hr class="mt-0 mb-2 pt-0 pb-0">
-        <p class="card-headline mb-0">{{ blog.headline }}</p>
-        <small class="card-tags"> Tags: {{ blog.tags }}</small>
-      </div>
-    </a>
-
-    {% endfor %}
-
-    <div class="page_nav mt-5">
-      {% for page_num in blogs.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-        {% if page_num %}
-          {% if blogs.page == page_num %}
-              <a class="btn btn-info mb-4" href="{{ url_for('main.index', page=page_num, tag_filter=tag_filter) }}">{{ page_num }}</a>
-          {% else %}
-              <a class="btn btn-outline-info mb-4" href="{{ url_for('main.index', page=page_num, tag_filter=tag_filter) }}">{{ page_num }}</a>
-          {% endif %}
-        {% else %}
-            ...
-        {% endif %}
-      {% endfor %}
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <a href="#">
+        <img src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/main.jpeg') }}" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h4>First slide label</h4>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </div>
+      </a>
     </div>
-
+    <div class="carousel-item">
+      <img src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h4>Second slide label</h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/thescore_stats.png') }}" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block">
+        <h4>Third slide label</h4>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+      </div>
+    </div>
   </div>
+  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+    <div class="row">
+      <div class="col-sm mt-3">
+        <a href="#" class="card">
+          <img src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/main.jpeg') }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm mt-3">
+        <a href="#" class="card">
+          <img src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/main.jpeg') }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm mt-3">
+        <a href="#" class="card">
+          <img src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/main.jpeg') }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </a>
+      </div>
+    </div>
 
 {% endblock %}

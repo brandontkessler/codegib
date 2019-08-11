@@ -1,0 +1,29 @@
+#spotlight-carousel {
+  height: 500px;
+}
+
+.carousel-inner {
+  height: 500px;
+}
+
+.d-block {
+  height: 500px;
+  object-fit: cover;
+}
+
+.d-none {
+  display: block !important;
+}
+
+.card {
+  height: 300px;
+  overflow: hidden;
+  color: black;
+}
+
+.card:hover {
+  text-decoration: none;
+  color: black;
+  padding: 4px;
+  border: 3px solid #171B35;
+}

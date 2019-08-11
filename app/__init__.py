@@ -25,6 +25,9 @@ def create_app(config_name):
     from app.main.views import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    from app.media.views import media as media_blueprint
+    app.register_blueprint(media_blueprint, url_prefix='/media')
+
     from app.auth.views import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
 

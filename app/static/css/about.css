@@ -1,0 +1,44 @@
+.pic-contact {
+  width: 35%;
+  float: left;
+}
+
+.profile_pic {
+  max-width: 90%;
+  margin: auto;
+}
+
+.about-contact {
+  width: 80%;
+  margin: auto;
+  font-size: 2em;
+  text-align: center;
+}
+
+.gmail-nav, .gmail-nav:hover {
+  color: #E04839;
+}
+
+.linkedin-nav, .linkedin-nav:hover {
+  color: #0077B5;
+}
+
+.github-nav, .github-nav:hover {
+  color: black;
+}
+
+.gmail-nav:hover, .linkedin-nav:hover, .github-nav:hover {
+  opacity: 0.7;
+}
+
+@media only screen and (max-width: 600px) {
+  .pic-contact {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .pic-contact {
+    width: 100%;
+  }
+}

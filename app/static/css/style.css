@@ -1,42 +1,50 @@
 body {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Merriweather', serif;
+}
+
+.all-but-footer {
+    min-height: calc(100vh - 115px);
 }
 
 .nav1 {
-  background-color: #fcfcfc;
-}
-
-.nav-social {
-  font-size: 40px;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.nav-social .nav-link:hover {
-  opacity: 0.6;
-}
-
-.gmail-nav, .gmail-nav:hover {
-  color: #E04839;
-}
-
-.linkedin-nav, .linkedin-nav:hover {
-  color: #0077B5;
-}
-
-.github-nav, .github-nav:hover {
-  color: black;
-}
-
-.medium-nav, .medium-nav:hover {
-  color: black;
-}
-
-.profile_pic {
   height: 150px;
-  width: 190px;
+}
+
+.cg-logo-full {
+  width: 250px;
+}
+
+.nav2 {
+  background-color: #171B35 !important;
+}
+
+.cg-logo {
+  width: 75px;
 }
 
 .nav2 .navbar-nav .nav-link {
   color: white;
+  font-size: 0.9em;
+}
+
+.footer {
+  margin-top: 15px;
+  background-color: #171B35;
+  height: 100px;
+  position: relative;
+  bottom: 0;
+}
+
+.footer p {
+  color: white;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.footer a {
+  color: green;
 }

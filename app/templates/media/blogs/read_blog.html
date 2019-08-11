@@ -7,7 +7,7 @@
 {% block page_content %}
 
   {% if current_user.blog_priv %}
-    <a class="btn-lg btn-secondary" href="{{ url_for('main.edit_blog', blog_title=blog.title) }}" id="edit-btn">Edit</a>
+    <a class="btn-lg btn-secondary" href="{{ url_for('media.edit_blog', blog_title=blog.title) }}" id="edit-btn">Edit</a>
   {% endif %}
 
   <div class="row mt-4">
@@ -25,7 +25,7 @@
       <p>
         <span class="mr-2">Tags:</span>
         {% for tag in blog.tags.split(", ") %}
-        <a href="{{ url_for('main.index', page=1, tag_filter=tag) }}">{{ tag }}</a>
+        <a href="{{ url_for('media.media_index', page=1, tag_filter=tag) }}">{{ tag }}</a>
         <span> | </span>
         {% endfor %}
       </p>

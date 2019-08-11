@@ -7,7 +7,7 @@
 
 .blog-card:hover {
   text-decoration: none;
-  border-left: 3px solid black;
+  border-left: 3px solid #171B35;
   margin-left: -3px;
 }
 
@@ -33,6 +33,7 @@
 
 .card-headline {
   color: #363636;
+  font-size: 0.8em;
 }
 
 .card-date {

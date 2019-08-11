@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/media.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/blog_breadcrumb.css') }}">
+{% endblock %}
+
+{% block page_content %}
+  <div class="container">
+    {% include "helpers/blog_breadcrumb.html" %}
+  </div>
+
+  <div class="container">
+    <div class="row mt-4">
+      {% for blog in blogs.items %}
+
+      <a href="{{ url_for('media.read_blog', blog_title=blog.title) }}" class="mb-5 blog-card">
+
+        <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+
+        <div class="card-body">
+          <small class="card-date">Posted on: {{ blog.date.strftime('%B, %d') }}</small>
+          <h4 class="card-title">{{ blog.title }}</h4>
+          <hr class="mt-0 mb-2 pt-0 pb-0">
+          <p class="card-headline mb-0">{{ blog.headline }}</p>
+        </div>
+      </a>
+
+      {% endfor %}
+
+      <div class="page_nav mt-5">
+        {% for page_num in blogs.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+          {% if page_num %}
+            {% if blogs.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('media.media_index', page=page_num, tag_filter=tag_filter) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('media.media_index', page=page_num, tag_filter=tag_filter) }}">{{ page_num }}</a>
+            {% endif %}
+          {% else %}
+              ...
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+
+
+
+{% endblock %}
