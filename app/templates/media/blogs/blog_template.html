@@ -1,0 +1,256 @@
+<div class="mt-4">
+  <blockquote class="blockquote ml-2" style="border-left: 2px solid gray;">
+    <p class="pl-3"><em>This article is meant to be educational on how to build a simple spider to scrape individual NBA game stats from a website called theScore.</em></p>
+    <p class="pl-3"><em>The example will teach you how to scrape individual stats including player name, minutes played, and points scored for four NBA games across two different dates and storing that data in a CSV file.</em></p>
+  </blockquote>
+</div>
+
+<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+
+<img src="/static/img/blogs/scrapy_sports_data/main.jpeg" class="img-fluid" alt="Responsive image">
+
+<div class="mt-4">
+  <h2>Preliminary</h2>
+  <p>Before we can scrape any data, we have to identify the URLs that contain the data we want to scrape. Simply by navigating around the website in question, we are able to find an example of game stats in the URL:</p>
+  <blockquote cite="https://www.thescore.com/nba/events/148019/stats">
+    <p style="text-align: center;"><a href="https://www.thescore.com/nba/events/148019/stats"><em>nba/events/148019/stats</em></a></p>
+  </blockquote>
+  <p>Following the URL above will take you to a page on theScore that produces tables of stats for the game in question, like below:</p>
+  <p>
+    <img src="/static/img/blogs/scrapy_sports_data/thescore_stats.png" class="img-fluid" alt="Responsive image" style="width:100%">
+    <small class="text-muted" style="text-align: center">image via: theScore.com</small>
+  </p>
+  <p>Using the above URL, we can simply replace the ID with the ID of any game and retrieve all of the stats for that particular game. This is our ultimate goal but first, we have to figure out a way to identify the IDs for the games in question.</p>
+  <p>To determine the game IDs, we can work backwards to describe the path to get to that page. Doing this, we can identify our initial URL as:</p>
+  <blockquote cite="https://www.thescore.com/nba/events/date/2019-04-28">
+    <p style="text-align: center;"><a href="https://www.thescore.com/nba/events/date/2019-04-28"><em>nba/events/date/2019-04-28</em></a></p>
+  </blockquote>
+  <p>Now, we can use the above URL as our starting point, access the IDs to the games on that date, navigate to the stats page of those games, and scrape the page for the stats we want.</p>
+  <p>We’re ready to move on to the project.</p>
+</div>
+
+<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+
+<div class="mt-4">
+  <h2>Project Outline</h2>
+  <p>The project itself is extremely simple and will only require four steps to accomplish:</p>
+  <ol>
+    <li>Install Scrapy.</li>
+    <li>Start a new Scrapy project.</li>
+    <li>Build the spider to crawl the pages.</li>
+    <li>Store the data to CSV.</li>
+  </ol>
+</div>
+
+<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+
+<div class="mt-4">
+  <h2>Install Scrapy</h2>
+  <p>We start by installing Scrapy. Using conda, run:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    conda install scrapy
+  </pre>
+  <p>If using terminal you can instead run:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    pip install scrapy
+  </pre>
+</div>
+
+<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+
+<div class="mt-4">
+  <h2>Start Scrapy Project</h2>
+  <p>Now that scrapy is installed, we can easily start a new project, that we’ll call “stat_scraper”, and navigate into the project using:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    scrapy startproject stat_scraper
+  </pre>
+  <p>We can see a directory called “stat_scraper” has been created in our working directory and will look something like below:</p>
+  <p style="text-align:center;">
+    <img src="/static/img/blogs/scrapy_sports_data/start_project.png" class="img-fluid" alt="Responsive image" style="">
+    <br>
+    <small class="text-muted">Scrapy project directory tree</small>
+  </p>
+  <p>Next we can navigate into the “stat_scraper” directory and build our spider.</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    cd stat_scraper
+  </pre>
+</div>
+
+<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+
+<div class="mt-4">
+  <h2>Build the Spider</h2>
+  <hr align="left" width="33%">
+  <p>Now, the fun part. The spider will do all of the work for us. We just have to give it the appropriate instructions. For purposes of the example, we’ll name our spider “stat_spider”. To initialize it, run:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    scrapy genspider stat_spider thescore.com/nba/events
+  </pre>
+  <p>The URL at the end of the command indicates the starting point of the URLs that we’d like our spider to use.</p>
+  <p>Using your favorite IDE or text editor, open the <strong>stat_spider.py</strong> file that is nested in the <strong>spiders</strong> directory. It should like like:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    import scrapy
+
+    class StatSpiderSpider(scrapy.Spider):\
+      name = 'stat_spider'\
+      start_urls = ['http://thescore.com/nba/events/']
+
+    def parse(self, response):
+      pass
+  </pre>
+  <p>We can delete ‘allowed_domains’ as it’s not necessary.</p>
+  <br>
+
+  <h3 class="mt-2">Accessing Date Page</h3>
+  <hr align="left" width="33%">
+  <p>The ‘parse’ method is what will run when we run our spider. Remembering the steps, let’s first identify the initial URLs we want our spider to begin crawling on.</p>
+  <p>In this example, let’s use April 28 and April 29, 2019 as our dates. We can determine the URL to access the games within these dates using below for our ‘parse’ method:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    def parse(self, response):
+      dates = ['2019-04-28', '2019-04-29']
+      for date in dates:
+        yield response.follow(self.start_urls[0] + 'date/' + date,
+                              self.access_stats_page)
+  </pre>
+  <p>Remember, <em>start_url</em> is a list containing: <em>http://thescore.com/nba/events/</em> as its only value. We are then combining that with ‘date/’ followed by each date stored in the list we created called dates, resulting in our starting <em>URL: http://thescore.com/nba/events/date/2019–04–28</em> and then moving on to 2019–04–29 for our second URL.</p>
+  <p>The second argument given to <em>response.follow()</em> is a callback for another method that we will later create.</p>
+  <br>
+
+  <h3 class="mt-2">Identify Game Ids</h3>
+  <hr align="left" width="33%">
+  <p>We’re now at the step of identifying the ID of each game. By going to one of the URLs above (<em>http://thescore.com/nba/events/date/2019–04–28</em>), we will inspect the HTML structure by right-clicking on one of the games and selecting ‘inspect’.</p>
+  <p>
+    <img src="/static/img/blogs/scrapy_sports_data/game_id_identification.png" class="img-fluid" alt="Responsive image" style="width:100%">
+  </p>
+  <p>The structure has the same class for each game with an a-tag just above it (its parent) containing the relative path to each of the games on that date.</p>
+  <p>That said, we can easily access the stats of each game by the following:</p>
+  <ol>
+    <li>
+      Identify each game by the common class of:
+      <br>
+      <em>EventCard__eventCardContainer--3hTGN.</em>
+    </li>
+    <li>Access its parent tag.</li>
+    <li>Extract the href.</li>
+    <li>Combine the href with the URL to the site and add ‘/stats’ to the end.</li>
+  </ol>
+  <br>
+
+  <h3>Access Stats Page for Each Game</h3>
+  <hr align="left" width="33%">
+  <p>Let’s do this in a method called ‘access_stats_page’:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    def access_stats_page(self, response):
+      init_url = 'http://thescore.com'
+      pth = '//div[@class="EventCard__eventCardContainer--3hTGN"]/../@href'
+
+      for href in response.xpath(pth).extract():
+        yield response.follow(init_url + href + '/stats', self.scraper)
+  </pre>
+  <p>We’re using a variable called ‘pth’ to store the xpath accessing the div with the class EventCard__eventCardContainer--3hTGN, then accessing one level up with ‘/../’ and grabbing the href.</p>
+  <p>We loop through each href and using it to create a new URL by combining ‘http://thescore.com’ with the href (‘/nba/events/148019’ for example) and adding ‘/stats/’ to the end. We then follow that URL using a callback on another method we will create that scrapes the data.</p>
+  <br>
+
+  <h3>Scrape Data</h3>
+  <hr align="left" width="33%">
+  <p>Finally, we can scrape the data that we want. We have to identify the CSS selectors for each of the data points we’re looking for. Similar to identifying game IDs, we right click on one of the players’ rows and click inspect:</p>
+  <p>
+    <img src="/static/img/blogs/scrapy_sports_data/stats_css_selectors.png" class="img-fluid" alt="Responsive image" style="width:100%">
+  </p>
+  <p>Here, we can see that each row containing the player name and stats contains the common class of <em>BoxScore__statLine--3Daky</em>. Player names have the class <em>BoxScore__rosterCell--1mCYH</em> while each individual stat (MIN, PTS, REB, etc.) is listed underneath with the same class of <em>BoxScore__statCell--1mqbI</em>.</p>
+  <p>We will use these to access the values in our ‘scraper’ method:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    def scraper(self, response):
+      player_rows = response.css(".BoxScore__statLine--3Daky")
+      name_sel = ".BoxScore__rosterCell--1mCYH::text"
+      min_sel = ".BoxScore__statCell--1mqbI:nth-child(2)::text"
+      pts_sel = ".BoxScore__statCell--1mqbI:nth-child(3)::text"
+
+      for player in player_rows:
+        name = player.css(name_sel).extract()
+        minutes = player.css(min_sel).extract()
+        points = player.css(pts_sel).extract()
+        yield {
+            'name': name,
+            'minutes': minutes,
+            'points': points
+        }
+  </pre>
+  <p>First, we use the classes identified above as our CSS selectors — use nth child to identify each additional column of data to access, for example, rebounds would be 4, blocks would be 7, etc.</p>
+  <p>Next, loop through each player selected by the <em>player_rows</em> variable and extract the name, minutes, and points using the variables we created called <em>name_sel</em>, <em>in_sel</em>, and <em>pts_sel</em>.</p>
+  <p>We complete the spider by yielding the output generated from these.</p>
+  <br>
+
+  <h3>Running the Spider</h3>
+  <hr align="left" width="33%">
+  <p>Now that we’re done building the spider, we can run it from the command line:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    scrapy crawl stat_spider
+  </pre>
+  <p>The output in the command line should return a lot of these:</p>
+  <p style="text-align:center;">
+    <img src="/static/img/blogs/scrapy_sports_data/spider_output.png" class="img-fluid" alt="Responsive image" style="">
+    <br>
+    <small class="text-muted">Scrapy spider output</small>
+  </p>
+  <p>If so, congratulations, the spider is working perfectly. All that’s left to do is store all of the data onto a CSV file.</p>
+  <br>
+
+  <h3>Store Data to CSV File</h3>
+  <hr align="left" width="33%">
+  <p>To do this, we will run the spider again but with a slightly different command:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    scrapy crawl stat_spider -o nba_stats.csv
+  </pre>
+  <p>The <em>-o</em> flag lets you assign the output of the spider which we assign to a CSV file called nba_stats. You can, just as easily, save it to a .json or .xml file as well.</p>
+  <p>Opening the file, you will see:</p>
+  <p style="text-align:center;">
+    <img src="/static/img/blogs/scrapy_sports_data/spider_csv_output.png" class="img-fluid" alt="Responsive image" style="">
+    <br>
+    <small class="text-muted">First 12 Records</small>
+  </p>
+  <p>It will be 121 rows total — 15 players listed per team, 2 teams per game, 4 games total = 120 + 1 row for column names.</p>
+  <p>You can replicate this on any number of sites to scrape away whatever data it is you’re looking for. Make sure to follow the robots.txt rules if the site has one. Otherwise, what you do with the data is up to you.</p>
+</div>
+
+<hr>
+
+<div class="mt-4">
+  <p>The final spider looks like:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    import scrapy
+    class StatSpiderSpider(scrapy.Spider):
+      name = 'stat_spider'
+      start_urls = ['http://thescore.com/nba/events/']
+
+      def parse(self, response):
+        dates = ['2019-04-28', '2019-04-29']
+        for date in dates:
+          yield response.follow(self.start_urls[0]+'date/'+date,
+                                self.access_stats_page)
+
+      def access_stats_page(self, response):
+        init_url = 'http://thescore.com'
+        pth = '//div[@class="EventCard__eventCardContainer--3hTGN"]/../@href'
+
+        for href in response.xpath(pth).extract():
+          yield response.follow(init_url + href + '/stats',
+                                self.scraper)
+
+      def scraper(self, response):
+        player_rows = response.css(".BoxScore__statLine--3Daky")
+        name_sel = ".BoxScore__rosterCell--1mCYH::text"
+        min_sel = ".BoxScore__statCell--1mqbI:nth-child(2)::text"
+        pts_sel = ".BoxScore__statCell--1mqbI:nth-child(3)::text"
+
+        for player in player_rows:
+          name = player.css(name_sel).extract()
+          minutes = player.css(min_sel).extract()
+          points = player.css(pts_sel).extract()
+          yield {
+            'name': name,
+            'minutes': minutes,
+            'points': points
+          }
+  </pre>
+  <p>Feel free to reach out on <a href="https://www.linkedin.com/in/brandon-kessler-2937ba2a/" target="_blank">LinkedIn</a> for any clarification or to discuss.</p>
+</div>

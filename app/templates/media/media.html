@@ -16,7 +16,7 @@
         <div class="col-sm-8 mb-5">
           <a href="{{ url_for('media.read_blog', blog_title=blogs[0].title) }}" class="row main-card blog-card">
             <div class="col-6">
-              <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+              <img class="card-cover" src="{{ url_for('static', filename=blogs[0].feature_img_path) }}" class="card-img-top" alt="...">
             </div>
             <div class="col-6">
               <div class="card-body">
@@ -33,7 +33,7 @@
             <div class="col-12">
               <a href="{{ url_for('media.read_blog', blog_title=blogs[1].title) }}" class="row blog-card">
                 <div class="col-4">
-                  <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+                  <img class="card-cover" src="{{ url_for('static', filename=blogs[1].feature_img_path) }}" class="card-img-top" alt="...">
                 </div>
                 <div class="col-8">
                   <div class="card-body">
@@ -44,7 +44,7 @@
               </a>
               <a href="{{ url_for('media.read_blog', blog_title=blogs[2].title) }}" class="row blog-card mt-5">
                 <div class="col-4">
-                  <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+                  <img class="card-cover" src="{{ url_for('static', filename=blogs[2].feature_img_path) }}" class="card-img-top" alt="...">
                 </div>
                 <div class="col-8">
                   <div class="card-body">
@@ -62,7 +62,7 @@
         <div class="col-6">
           <a href="{{ url_for('media.read_blog', blog_title=blogs[3].title) }}" class="row blog-card">
             <div class="col-4">
-              <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+              <img class="card-cover" src="{{ url_for('static', filename=blogs[3].feature_img_path) }}" class="card-img-top" alt="...">
             </div>
             <div class="col-8">
               <div class="card-body">
@@ -77,7 +77,7 @@
         <div class="col-6">
           <a href="{{ url_for('media.read_blog', blog_title=blogs[4].title) }}" class="row blog-card">
             <div class="col-4">
-              <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+              <img class="card-cover" src="{{ url_for('static', filename=blogs[4].feature_img_path) }}" class="card-img-top" alt="...">
             </div>
             <div class="col-8">
               <div class="card-body">
@@ -95,7 +95,7 @@
         {% for blog in blogs[5:] %}
         <a href="{{ url_for('media.read_blog', blog_title=blog.title) }}" class="row remaining-blog-card blog-card">
           <div class="col-4">
-            <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+            <img class="card-cover" src="{{ url_for('static', filename=blog.feature_img_path) }}" class="card-img-top" alt="...">
           </div>
           <div class="col-8">
             <div class="card-body">
@@ -114,7 +114,7 @@
         {% for blog in blogs %}
         <a href="{{ url_for('media.read_blog', blog_title=blog.title) }}" class="row remaining-blog-card blog-card">
           <div class="col-4">
-            <img class="card-cover" src="{{ url_for('static', filename='img/blogs/scrapy_sports_data/test.jpg') }}" class="card-img-top" alt="...">
+            <img class="card-cover" src="{{ url_for('static', filename=blog.feature_img_path) }}" class="card-img-top" alt="...">
           </div>
           <div class="col-8">
             <div class="card-body">

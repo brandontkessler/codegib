@@ -23,6 +23,10 @@
     {{ form.author(class="form-control blog-author") }}
   </div>
   <div class="form-group">
+    {{ form.feature_img_path.label() }}
+    {{ form.feature_img_path(class="form-control blog-img_path") }}
+  </div>
+  <div class="form-group">
     {{ form.headline.label() }}
     {{ form.headline(class="form-control blog-headline") }}
   </div>

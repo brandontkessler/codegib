@@ -48,6 +48,7 @@ def post_blog():
         blog = Blog(
             title=form.title.data.strip(),
             author=form.author.data.strip() or 'Brandon Kessler',
+            feature_img_path=form.feature_img_path.data.strip(),
             _content=form.content.data,
             headline=form.headline.data.strip(),
             tags=form.tags.data,
@@ -77,6 +78,7 @@ def edit_blog(blog_title):
     if form.validate_on_submit(): # For valid post request
         blog.title=form.title.data.strip()
         blog.author=form.author.data.strip() or "Brandon Kessler"
+        blog.feature_img_path=form.feature_img_path.data.strip()
         blog._content=form.content.data
         blog.headline=form.headline.data.strip()
         blog.tags=form.tags.data
@@ -87,3 +89,17 @@ def edit_blog(blog_title):
         return redirect(url_for('media.media_index'))
 
     return render_template('media/blogs/edit_blog.html', title="Edit a Blog", form=form, blog=blog)
+
+
+@media.route('/blog/<blog_title>/delete', methods=['GET'])
+@login_required
+@check_confirmed
+@check_blogger
+def delete_blog(blog_title):
+    blog = Blog.query.filter_by(title=blog_title).first_or_404()
+
+    db.session.delete(blog)
+    db.session.commit()
+
+    flash('Your blog has been deleted.', 'success')
+    return redirect(url_for('media.media_index'))

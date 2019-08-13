@@ -28,6 +28,10 @@
   </head>
   <body>
     <div class="all-but-footer">
+      {% if current_user.admin_priv or current_user.blog_priv %}
+      <small>logged in as {{ current_user.email }}</small>
+      <small>privs: admin - {{ current_user.admin_priv }} & blogs - {{ current_user.blog_priv }}</small>
+      {% endif %}
       {% block navbar %}
       <nav class="navbar navbar-expand-sm pb-0 nav1">
         <div class="container">

@@ -12,7 +12,24 @@
 	let this_file = $('#blog_content');
 	let blog_content = this_file.attr("blog_content");
   let blog_content_div = $('.blog-content-container');
+	let start_delete = $('#start-delete-btn');
+	let delete_btn = $('#delete-btn');
+	let cancel_btn = $('#cancel-btn');
 
+	delete_btn.hide()
+	cancel_btn.hide()
   blog_content_div.html(blog_content)
+
+	start_delete.on('click', function(){
+		$(this).hide()
+		delete_btn.show()
+		cancel_btn.show()
+	})
+
+	cancel_btn.on('click', function(){
+		$(this).hide()
+		delete_btn.hide()
+		start_delete.show()
+	})
 
 }));

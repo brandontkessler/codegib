@@ -47,6 +47,7 @@ class Blog(db.Model):
     _content = db.Column(db.Text, nullable=False)
     headline = db.Column(db.String(150), nullable=False, default="Please select a headline")
     _tags = db.Column(db.String(128))
+    feature_img_path = db.Column(db.String(128), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 

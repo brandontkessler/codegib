@@ -8,11 +8,14 @@
 
   {% if current_user.blog_priv %}
     <a class="btn-lg btn-secondary" href="{{ url_for('media.edit_blog', blog_title=blog.title) }}" id="edit-btn">Edit</a>
+    <a class="btn-lg btn-secondary" href="#" id="start-delete-btn">Delete</a>
+    <a class="btn-lg btn-danger" href="{{ url_for('media.delete_blog', blog_title=blog.title) }}" id="delete-btn">Are You Sure?</a>
+    <a class="btn-lg btn-secondary" href="#" id="cancel-btn">Cancel</a>
   {% endif %}
 
   <div class="row mt-4">
 
-    <div class="">
+    <div class="container">
       <h1 class="mb-0">{{ blog.title }}</h1>
       <small>Date posted: {{ blog.date.strftime("%B, %d") }}</small>
       <h4 class="mt-4 blog-headline">{{ blog.headline }}</h4>
