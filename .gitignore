@@ -2,7 +2,7 @@
 venv/
 
 # Dev configuration
-dev_config.json
+app_config.json
 
 # SQLite databases
 *.sqlite

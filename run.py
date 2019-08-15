@@ -59,21 +59,21 @@ def add_seed_command():
 @app.cli.command('add_initial_carousel_items')
 def add_initial_carousel_command():
     article_1 = Carousel(
-        img_path='app/static/img/carousel/pirate_metrics.png',
+        img_path='img/carousel/pirate_metrics.png',
         url='https://www.activecampaign.com/blog/aaarrr-what-are-pirate-metrics',
         title='AAARRR! What are Pirate Metrics?',
         author='Jordan Skole',
         source='ActiveCampaign'
     )
     article_2 = Carousel(
-        img_path='app/static/img/carousel/clustering.png',
+        img_path='img/carousel/clustering.png',
         url='https://towardsdatascience.com/clustering-why-to-use-it-16d8e2fbafe',
         title='Clustering: Why to Use it',
         author='Robert Miller',
         source='Medium'
     )
     article_3 = Carousel(
-        img_path='app/static/img/carousel/supervised_vs_unsupervised.png',
+        img_path='img/carousel/supervised_vs_unsupervised.gif',
         url='https://towardsdatascience.com/supervised-vs-unsupervised-learning-14f68e32ea8d',
         title='Supervised vs. Unsupervised Learning',
         author='Devin Soni',

@@ -50,7 +50,7 @@
 
   <div class="row home-top-3">
     {% for blog in top_3_blogs %}
-    <div class="col-sm mt-3">
+    <div class="col-md mt-3">
       <a href="{{ url_for('media.read_blog', blog_title=blog.title) }}" class="card">
         <img src="{{ url_for('static', filename=blog.feature_img_path) }}" class="card-img-top" alt="...">
         <div class="card-body">
@@ -62,4 +62,9 @@
     {% endfor %}
   </div>
 
+{% endblock %}
+
+
+{% block javascript %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 {% endblock %}

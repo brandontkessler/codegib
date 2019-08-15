@@ -29,8 +29,8 @@ To do this, we can use two options. The preferred option is using the provided C
 #### Option 1: Use provided cli commands
 
 ```
-$ flask add_api_stats
-$ flask add_api_info
+$ flask add_nba_stats
+$ flask add_nba_info
 $ flask add_seed_users
 $ flask add_seed_blogs
 ```

@@ -3,13 +3,8 @@ import json
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
-# CHECK IF PRODUCTION CONFIG EXISTS
-if os.path.exists('/etc/config.json'):
-    with open('/etc/config.json') as config_file:
-        config = json.load(config_file)
-else:
-    with open('dev_config.json') as config_file:
-        config = json.load(config_file)
+with open('app_config.json') as config_file:
+    config = json.load(config_file)
 
 
 class Config:

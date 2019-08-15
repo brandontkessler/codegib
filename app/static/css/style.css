@@ -28,7 +28,7 @@ body {
 }
 
 .footer {
-  margin-top: 15px;
+  margin-top: 30px;
   background-color: #171B35;
   height: 100px;
   position: relative;
@@ -47,4 +47,11 @@ body {
 
 .footer a {
   color: white;
+}
+
+
+@media only screen and (max-width: 450px) {
+  .cg-logo {
+    display: none;
+  }
 }
