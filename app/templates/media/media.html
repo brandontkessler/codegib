@@ -11,125 +11,20 @@
   </div>
 
   <div class="container">
-    {% if blogs|length > 5 %}
-      <div class="row first-blog-row">
-        <div class="col-sm-8 mb-5">
-          <a href="{{ url_for('media.read_blog', blog_title=blogs[0].title) }}" class="row main-card blog-card">
-            <div class="col-6">
-              <img class="card-cover" src="{{ url_for('static', filename=blogs[0].feature_img_path) }}" class="card-img-top" alt="...">
-            </div>
-            <div class="col-6">
-              <div class="card-body">
-                <small class="card-date">Posted on: {{ blogs[0].date.strftime('%B, %d') }}</small>
-                <h4 class="card-title">{{ blogs[0].title }}</h4>
-                <hr class="mt-0 mb-2 pt-0 pb-0">
-                <p class="card-headline mb-0">{{ blogs[0].headline }}</p>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-sm-4">
-          <div class="row small-cards">
-            <div class="col-12">
-              <a href="{{ url_for('media.read_blog', blog_title=blogs[1].title) }}" class="row blog-card">
-                <div class="col-4">
-                  <img class="card-cover" src="{{ url_for('static', filename=blogs[1].feature_img_path) }}" class="card-img-top" alt="...">
-                </div>
-                <div class="col-8">
-                  <div class="card-body">
-                    <small class="card-date">Posted on: {{ blogs[1].date.strftime('%B, %d') }}</small>
-                    <h5 class="card-title">{{ blogs[1].title }}</h5>
-                  </div>
-                </div>
-              </a>
-              <a href="{{ url_for('media.read_blog', blog_title=blogs[2].title) }}" class="row blog-card mt-5">
-                <div class="col-4">
-                  <img class="card-cover" src="{{ url_for('static', filename=blogs[2].feature_img_path) }}" class="card-img-top" alt="...">
-                </div>
-                <div class="col-8">
-                  <div class="card-body">
-                    <small class="card-date">Posted on: {{ blogs[2].date.strftime('%B, %d') }}</small>
-                    <h5 class="card-title">{{ blogs[2].title }}</h5>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
+    {% for blog in blogs %}
+    <a href="{{ url_for('media.read_blog', blog_title=blog.title) }}" class="media">
+      <div class="media-img-container mr-2">
+        <img src="{{ url_for('static', filename=blog.feature_img_path) }}" class="media-img" alt="...">
       </div>
-
-      <div class="row second-blog-row">
-        <div class="col-6">
-          <a href="{{ url_for('media.read_blog', blog_title=blogs[3].title) }}" class="row blog-card">
-            <div class="col-4">
-              <img class="card-cover" src="{{ url_for('static', filename=blogs[3].feature_img_path) }}" class="card-img-top" alt="...">
-            </div>
-            <div class="col-8">
-              <div class="card-body">
-                <small class="card-date">Posted on: {{ blogs[3].date.strftime('%B, %d') }}</small>
-                <h4 class="card-title">{{ blogs[3].title }}</h4>
-                <hr class="mt-0 mb-2 pt-0 pb-0">
-                <p class="card-headline mb-0">{{ blogs[3].headline }}</p>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-6">
-          <a href="{{ url_for('media.read_blog', blog_title=blogs[4].title) }}" class="row blog-card">
-            <div class="col-4">
-              <img class="card-cover" src="{{ url_for('static', filename=blogs[4].feature_img_path) }}" class="card-img-top" alt="...">
-            </div>
-            <div class="col-8">
-              <div class="card-body">
-                <small class="card-date">Posted on: {{ blogs[4].date.strftime('%B, %d') }}</small>
-                <h4 class="card-title">{{ blogs[4].title }}</h4>
-                <hr class="mt-0 mb-2 pt-0 pb-0">
-                <p class="card-headline mb-0">{{ blogs[4].headline }}</p>
-              </div>
-            </div>
-          </a>
-        </div>
+      <div class="media-body ml-2">
+        <small class="card-date">Posted on: {{ blog.date.strftime('%B, %d') }}</small>
+        <h5 class="mt-0">{{ blog.title }}</h5>
+        {{ blog.headline }}
       </div>
-
-      <div class="remaining-blogs">
-        {% for blog in blogs[5:] %}
-        <a href="{{ url_for('media.read_blog', blog_title=blog.title) }}" class="row remaining-blog-card blog-card">
-          <div class="col-4">
-            <img class="card-cover" src="{{ url_for('static', filename=blog.feature_img_path) }}" class="card-img-top" alt="...">
-          </div>
-          <div class="col-8">
-            <div class="card-body">
-              <small class="card-date">Posted on: {{ blog.date.strftime('%B, %d') }}</small>
-              <h4 class="card-title">{{ blog.title }}</h4>
-              <hr class="mt-0 mb-2 pt-0 pb-0">
-              <p class="card-headline mb-0">{{ blog.headline }}</p>
-            </div>
-          </div>
-        </a>
-        {% endfor %}
-      </div>
-
-    {% else %}
-      <div class="remaining-blogs">
-        {% for blog in blogs %}
-        <a href="{{ url_for('media.read_blog', blog_title=blog.title) }}" class="row remaining-blog-card blog-card">
-          <div class="col-4">
-            <img class="card-cover" src="{{ url_for('static', filename=blog.feature_img_path) }}" class="card-img-top" alt="...">
-          </div>
-          <div class="col-8">
-            <div class="card-body">
-              <small class="card-date">Posted on: {{ blog.date.strftime('%B, %d') }}</small>
-              <h4 class="card-title">{{ blog.title }}</h4>
-              <hr class="mt-0 mb-2 pt-0 pb-0">
-              <p class="card-headline mb-0">{{ blog.headline }}</p>
-            </div>
-          </div>
-        </a>
-        {% endfor %}
-      </div>
-    {% endif %}
+    </a>
+    <hr>
+    {% endfor %}
   </div>
-
 
 
 {% endblock %}

@@ -1,51 +1,32 @@
-.first-blog-row {
-  max-height: 255px;
-  overflow: hidden;
+.media {
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+  border-left: 2px solid white;
 }
 
-.main-card .card-cover {
-  width: 100%;
-}
-
-.small-cards {
-  height: 250px;
-  overflow: hidden;
-}
-
-.small-cards .card-cover {
-  width: 100%;
-}
-
-.second-blog-row {
-  overflow: hidden;
-}
-
-.second-blog-row .card-cover {
-  width: 100%;
-}
-
-.remaining-blog-card {
-  height: 150px;
-  overflow: hidden;
-}
-
-.remaining-blog-card .card-cover {
-  width: 100%;
-}
-
-
-.first-blog-row, .second-blog-row, .remaining-blog-card {
-  margin-bottom: 75px;
-}
-
-
-.card-body {
-  color: black;
-  padding: 0;
-}
-
-
-.blog-card:hover {
+.media:hover {
   text-decoration: none;
-  background-color: #eaeaea;
+  border-left: 2px solid black;
+}
+
+.media-img-container {
+  min-height: 100%;
+  width: 200px;
+  padding: 5px;
+}
+
+.media-img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.media-body {
+  color: black;
+}
+
+@media only screen and (max-width: 767px) {
+  .media-img-container {
+    width: 100%;
+  }
 }
