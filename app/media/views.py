@@ -1,11 +1,10 @@
-from flask import render_template, Blueprint, request, flash, redirect, url_for
+from flask import render_template, Blueprint, request, flash, redirect, url_for, send_file
 from flask_login import login_required, current_user
 
 from app import db
 from app.decorators import check_confirmed, check_admin, check_blogger
 from app.models import Blog
 from app.media.forms import BlogPostForm
-
 
 media = Blueprint('media', __name__)
 
@@ -103,3 +102,9 @@ def delete_blog(blog_title):
 
     flash('Your blog has been deleted.', 'success')
     return redirect(url_for('media.media_index'))
+
+
+@media.route('/get_ltv_csv', methods=['GET'])
+def send_sample_file():
+    file = 'static/files/data_sample_ltv.csv'
+    return send_file(file, as_attachment=True)

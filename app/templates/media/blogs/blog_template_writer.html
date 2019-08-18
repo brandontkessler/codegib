@@ -1,0 +1,284 @@
+<div class="mt-4">
+  <blockquote class="blockquote ml-2" style="border-left: 2px solid gray;">
+    <p class="pl-3"><em>This article will show you how to easily calculate the lifetime value of your customers.</em></p>
+    <p class="pl-3"><em>The dataset used is an altered version of a real dataset provided by one of my clients and is available below to follow along.</em></p>
+  </blockquote>
+</div>
+
+<hr>
+
+<img src="/static/img/blogs/ltv_python/main.png" class="img-fluid" alt="Responsive image" style="width: 100%">
+
+<div class="mt-4">
+  <h2>Breaking Down Lifetime Value</h2>
+  <p>Understanding how to calculate the lifetime value of customers is a simple concept when breaking it down into its individual parts.</p>
+  <ol>
+    <li>average customer lifespan</li>
+    <li>average transactions per period</li>
+    <li>average transaction amount ($)</li>
+  </ol>
+  <p>Knowing these three factors, we can simply multiply them together to calculate lifetime value.</p>
+  <p>For example, if our customers have an average lifespan of 3 years, make an average of 5 purchases per year at an average purchase price of $20, the lifetime value of our customers is $300 ($20 * 5 purchases per year * 3 year lifespan)</p>
+  <p>Through this exercise, we'll use Python to calculate the lifetime value of a set of customers as a whole and within each of our segments.</p>
+</div>
+
+<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+
+<div class="mt-4">
+  <h2>Setup</h2>
+  <p>To start the project, create a new directory, we'll call it "ltv", and cd inside of it.</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    $ mkdir ltv
+    $ cd ltv
+  </pre>
+  <p>Then, if you'd like to follow along with this example, download the dataset and save it into the "ltv" directory: <a href="/media/get_ltv_csv">data_sample_ltv.csv</a></p>
+  <p>The only packages we'll need for this is Pandas. If not already, let's install via pip:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    $ pip install pandas
+  </pre>
+  <p>Since I'll be using a jupyter notebook for this project, I'll install and run jupyter, but you can always use your favorite IDE instead.</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    $ pip install jupyter
+    $ jupyter notebook
+  </pre>
+</div>
+
+<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+
+<div class="mt-4">
+  <h2>Import Packages and Data</h2>
+  <p>Now that we're in our Jupyter Notebook, we can import our packages:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    import pandas as pd
+    import datetime as dt
+  </pre>
+  <p>Pandas will help us manipulate our datasets while datetime will allow us to easily work with dates.</p>
+  <p>Now, we can use Pandas to import the csv file as a dataframe and examine the structure:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    df = pd.read_csv('data_sample_ltv.csv')
+    df.sample(5)
+  </pre>
+  <p>The structure of the dataframe will look something like this:</p>
+  <p style="text-align:center;">
+    <img src="/static/img/blogs/ltv_python/ltv_structure.png" class="img-fluid" alt="Responsive image" style="">
+  </p>
+  <p>The categories are defined below: </p>
+  <ol>
+    <li>customer_id - The unique id provided to each individual customer</li>
+    <li>customer_tier - The product tier purchased (Gold, Silver, Bronze, Free-Trial)</li>
+    <li>transaction_date - The month, day, and year of transaction.</li>
+    <li>transaction_amount - The amount paid for the product.</li>
+  </ol>
+</div>
+
+<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+
+<div class="mt-4">
+  <h2>Organizing the Data</h2>
+  <p>For the most part, the data is already well structured for us to work with, but we do want to be able to organize data on a per year basis and we want our tiers to be ranked with 'Gold' being the best and 'Free-Trial' being the worst.</p>
+  <br>
+  <h4 class="mt-2">Converting Date to Year</h4>
+  <p>The easiest way to do this is to convert the transaction_date column to a transaction_year that just outputs the year that the transaction took place.</p>
+  <p>Here's one way to do that:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    date_mapper = {date: pd.to_datetime(date).year for date in df['transaction_date'].unique()}
+    year = df['transaction_date'].map(date_mapper)
+    df['transaction_year'] = year
+  </pre>
+  <p>The date_mapper that we created is a dictionary containing each unique date and its corresponding year. We then use this dictionary to map the transaction_date column and assign it to a new column named transaction_year.</p>
+  <p>Now, we can organize, filter, and manipulate our data using the transaction_year.</p>
+  <br>
+  <h4 class="mt-2">Ranking Tier Categories</h4>
+  <p>Next, we need to organize our tier data as categorical data.</p>
+  <p>The reason this is important is because if a customer makes purchases in multiple tiers, we want to include them only in their highest tier when calculating lifetime value.<p>
+  <p>For instance, when calculating the lifetime value for Gold tier customers, we don't want to only include the purchases they made in Gold tier, we want to include all of their purchases. By categorizing them by their highest tier, we can easily collect all of their transactions and not just their Gold tier transactions.</p>
+  <small>Note: This isn't the only way to calculate the lifetime value of a segment. You may want to calculate the lifetime value of all customers that began as a Free-Trial customer. In this case, instead of organizing by highest tier, we can organize by initial tier. Then we can filter it to only include customers that started in the Free-Trial tier.</small>
+  <p>To accomplish this, we'll use the Categorical method provided by pandas:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    tiers = pd.Categorical(df['customer_tier'],
+                           categories=['Gold', 'Silver', 'Bronze', 'Free-Trial'],
+                           ordered=True)
+    df['customer_tier'] = tiers
+  </pre>
+  <p>Through this, we've created a new variable called tiers that takes the tiers we have for our customers and ranks them in order of Gold, Silver, Bronze, and Free-Trial. Then we assign it to the customer_tier column in the dataframe.</p>
+  <p>To make sure it works, we can sort the dataframe by the tier. Instead of sorting alphabetically, it will sort in the order that we provided:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    df.sample(10).sort_values('customer_tier')
+  </pre>
+  <p style="text-align:center;">
+    <img src="/static/img/blogs/ltv_python/sort_tier_category.png" class="img-fluid" alt="Responsive image" style="">
+    <br>
+    <small class="text-muted">Sorted in order of Gold, Silver, Bronze, Free-Trial</small>
+  </p>
+  <p>To demonstrate how we'll use this, let's identify a customer based on their highest tier. Let's use customer_id: 4998 as an example:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    print(df.loc[df.customer_id == 4998]['customer_tier'].value_counts())
+    print(df.loc[df.customer_id == 4998]['customer_tier'].sort_values().iloc[0])
+  </pre>
+  <p>The first line will is filtering for customer 4998, accessing the customer_tier column and counting how many times each category appears. This will tell us how many transactions customer 4998 has made at each tier:</p>
+  <ul class="list-group">
+    <li class="list-group-item">Free-Trial 568</li>
+    <li class="list-group-item">Gold 25</li>
+    <li class="list-group-item">Bronze 1</li>
+  </ul>
+  <p class="mt-5">The next line is, again, locating customer 4998, accessing the customer_tier, sorting by the category order that we defined, and then identifying the first value. Since the highest tier this customer has been is Gold, this printed 'Gold'.</p>
+  <p>Let's move this into a function and use it to create a mapper to identify the highest tier for each of our customers:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    def highest_tier(c_id, df=df):
+        tier = df.loc[df.customer_id == c_id]['customer_tier'].sort_values().iloc[0]
+        return tier
+
+    tier_mapper = {
+        cust_id: highest_tier(cust_id) for cust_id in df['customer_id'].unique()
+    }
+  </pre>
+  <p>The function we created - highest_tier - takes a customer id - c_id - and a dataframe that we set to df as default.</p>
+  <p>It goes through the same process above of identifying the customer, sorting by tier, and grabbing the first value. We are returning that value from the function.</p>
+  <p>Then, we create a dictionary - tier_mapper. The key is each unique customer id from our dataframe and the value is the corresponding highest tier.</p>
+  <p>We'll use this later.</p>
+</div>
+
+<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+
+<div class="mt-4">
+  <h2>Aggregating the Data</h2>
+  <p>Now we're ready to aggregate the data into the three pieces that we need (lifespan, average transactions per year, average transaction amount) per customer:</p>
+  <p>This can all be done via pandas:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    customer_df = df.groupby(['customer_id']).agg({
+        'transaction_amount': ['sum', 'count'],
+        'year': [pd.Series.nunique]
+    })
+  </pre>
+  <p>In short, we've made a new dataframe - customer_df - that has an index of each unique customer id and columns consisting of the total transaction amount, the total number of transactions, and the unique years in which a transaction was made for each customer.</p>
+  <p>Next, we can use the tier_mapper we created to add the highest customer tier for each individual customer to our new dataframe:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    customer_df['highest_tier'] = customer_df.index.map(tier_mapper)
+  </pre>
+  <p>Then, we can create new columns for lifespan, avg_trn_per_yr, and avg_trn_amt for each of our customers:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    customer_df['lifespan'] = customer_df[('year', 'nunique')]
+    customer_df['avg_trn_per_yr'] = customer_df[('transaction_amount', 'count')] / customer_df['lifespan']
+    customer_df['avg_trn_amt'] = customer_df[('transaction_amount', 'sum')] / customer_df[('transaction_amount', 'count')]
+  </pre>
+  <p>The lifespan column is going to be identical to the unique number of years for each customer.</p>
+  <p>The avg_trn_per_yr column is the count of transactions per customer divided by their lifespan. For example, if a customer made 20 transactions in their lifetime and had a lifespan of 4 years, they make on average 5 transactions per year.</p>
+  <p>The avg_trn_amt is total transaction amount per customer divided by their total number of transactions. For example, if a customer spent $1,000 over the lifetime and has made 20 transactions in their lifetime, they spend an average of $50 per transaction.</p>
+  <p>We now have all the pieces we need to calculate the lifetime value of our customers.</p>
+</div>
+
+<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+
+<div class="mt-4">
+  <h2>Calculating the Lifetime Value</h2>
+  <p>We have already organized our dataframe to include the lifespan, average transactions per year, and average transaction amount for each of our customers.</p>
+  <p>Calculating the lifetime value is now as simple as taking the average of each of those columns and multiplying them together.</p>
+  <p>Let's build a function to do this for us:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    def ltv(df, tier=None):
+      if tier:
+          df = df.loc[df['highest_tier'] == tier]
+
+      ltv_dict = {
+          'avg_lifespan': round(df['lifespan'].mean(), 1),
+          'avg_trn_per_yr': round(df['avg_trn_per_yr'].mean(), 1),
+          'avg_trn_amt': round(df['avg_trn_amt'].mean(), 2),
+          'ltv': None
+      }
+      ltv_dict['ltv'] = round(
+          ltv_dict['avg_lifespan'] * ltv_dict['avg_trn_per_yr'] * ltv_dict['avg_trn_amt'], 2)
+
+      return ltv_dict
+  </pre>
+  <p>Now we have a function that takes a dataframe and a tier which is set by default to None.</p>
+  <p>The first part checks if a value for tier is included. This would only be 'Gold', 'Silver', 'Bronze', or 'Free-Trial'. If there is a value included, we will filter the provided dataframe by including only customers with a matching highest_tier.</p>
+  <p>Then it creates a dicitonary - ltv_dict - that consists of the following:</p>
+  <ul class="list-group">
+    <li class="list-group-item">avg_lifespan - average lifespan of all customers included in dataframe.</li>
+    <li class="list-group-item">avg_trn_per_yr - average transactions per year for customers included in dataframe.</li>
+    <li class="list-group-item">avg_trn_amt - average transaction amount for customers included in dataframe.</li>
+    <li class="list-group-item">ltv - avg_lifespan * avg_trn_per_yr * avg_trn_amt.</li>
+  </ul>
+  <p class="mt-5">We return the ltv_dict from the function.</p>
+  <p>Now we can calculate the lifespan, average number of transactions, average transaction amount, and lifetime value for our customers as whole or by individual segment using the function:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    ltv_all = ltv(customer_df)
+    ltv_gold = ltv(customer_df, 'Gold')
+    ltv_silver = ltv(customer_df, 'Silver')
+    ltv_bronze = ltv(customer_df, 'Bronze')
+
+    print(f"The lifetime value of our Gold tier is: {ltv_gold['ltv']} while the ltv of bronze is {ltv_bronze['ltv']}")
+  </pre>
+  <p>Now we can see the differences between each of our segments. For example, the lifespan of our Gold tier customers is 8.2 years with a lifetime value of $9,928.81 while our Bronze tier has a lifespan of 4.4 years and a lifetime value of $1,961.78.</p>
+  <p>The business implications behind these numbers are dependent on each individual company and its long-term strategy and goals but I hope this simplifies the process of calculating those numbers for any business efficiently.</p>
+</div>
+
+<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));">
+
+<div class="mt-4">
+  <p>The final file looks like:</p>
+  <pre class="pt-4" style="background-color:#F2F3F4;">
+    df = pd.read_csv('data_sample_ltv.csv')
+
+    # Convert date to year
+    date_mapper = {date: pd.to_datetime(date).year for date in df['transaction_date'].unique()}
+    year = df['transaction_date'].map(date_mapper)
+    df['year'] = year
+
+
+    # Convert tier to categorical
+    tiers = pd.Categorical(df['customer_tier'],
+                       categories=['Gold', 'Silver', 'Bronze', 'Free-Trial'],
+                       ordered=False)
+    df['customer_tier'] = tiers
+
+
+    # Create highest tier mapper
+    def highest_tier(c_id, df=df):
+        tier = df.loc[df.customer_id == c_id]['customer_tier'].sort_values().iloc[0]
+        return tier
+
+    tier_mapper = {
+        cust_id: highest_tier(cust_id) for cust_id in df['customer_id'].unique()
+    }
+
+
+    # Aggregate the data
+    customer_df = df.groupby(['customer_id']).agg({
+        'transaction_amount': ['sum', 'count'],
+        'year': [pd.Series.nunique]
+    })
+
+    customer_df['highest_tier'] = customer_df.index.map(tier_mapper)
+    customer_df['lifespan'] = customer_df[('year', 'nunique')]
+    customer_df['avg_trn_amt'] = customer_df[('transaction_amount', 'sum')] / customer_df[('transaction_amount', 'count')]
+    customer_df['avg_trn_per_yr'] = customer_df[('transaction_amount', 'count')] / customer_df['lifespan']
+
+
+    # Create the LTV function
+    def ltv(df, tier=None):
+        if tier:
+            df = df.loc[df['highest_tier'] == tier]
+
+        ltv_dict = {
+            'avg_lifespan': round(df['lifespan'].mean(), 1),
+            'avg_trn_per_yr': round(df['avg_trn_per_yr'].mean(), 1),
+            'avg_trn_amt': round(df['avg_trn_amt'].mean(), 2),
+            'ltv': None
+        }
+        ltv_dict['ltv'] = round(
+            ltv_dict['avg_lifespan'] * ltv_dict['avg_trn_per_yr'] * ltv_dict['avg_trn_amt'], 2)
+
+        return ltv_dict
+
+    # Calculate the LTVs for each of our customer segments
+    ltv_all = ltv(customer_df)
+    ltv_gold = ltv(customer_df, 'Gold')
+    ltv_silver = ltv(customer_df, 'Silver')
+    ltv_bronze = ltv(customer_df, 'Bronze')
+
+    print(f"The lifetime value of our Gold tier is: {ltv_gold['ltv']} while the ltv of bronze is {ltv_bronze['ltv']}")
+  </pre>
+  <p>Thanks for reading!</p>
+  <p>Please don't hesitate to reach out on <a href="https://www.linkedin.com/in/brandon-kessler-2937ba2a/" target="_blank">LinkedIn</a> for any clarification or to discuss.</p>
+</div>

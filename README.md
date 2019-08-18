@@ -1,3 +1,10 @@
+# INITIALIZING THE APP
+
+```
+$ export FLASK_APP=run.py
+$ export FLASK_DEBUG=True
+```
+
 # SETTING UP THE DATABASE
 
 ## Create the database:
