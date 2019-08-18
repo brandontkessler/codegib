@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://www.codegib.com/</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://www.codegib.com/about</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.codegib.com/media/</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.codegib.com/api/</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.codegib.com/media/blog/How%20to%20Calculate%20Lifetime%20Value%20of%20your%20Customers</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.codegib.com/media/blog/How%20to%20Build%20a%20Spider%20to%20Scrape%20Sports%20Data%20Using%20Python</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.codegib.com/media/?page=1&amp;tag_filter=Python</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.codegib.com/media/?page=1&amp;tag_filter=Data</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.codegib.com/media/?page=1&amp;tag_filter=Marketing</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.codegib.com/api/nba_player_info/usage</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.codegib.com/api/nba_stats/usage</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.codegib.com/media/?page=1&amp;tag_filter=All</loc>
+  <lastmod>2019-08-18T15:04:06+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

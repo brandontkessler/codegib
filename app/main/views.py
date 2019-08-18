@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, request, flash, redirect, url_for
+from flask import render_template, Blueprint, request, flash, redirect, url_for, send_from_directory
 
 from app import db
 from app.models import Blog, Carousel
@@ -32,6 +32,11 @@ def index():
 def about():
     return render_template('about.html', title="About")
 
+
+@main.route('/robots.txt')
+@main.route('/sitemap.xml')
+def static_from_root():
+    return send_from_directory('static', request.path[1:])
 
 
 @main.app_errorhandler(404)
