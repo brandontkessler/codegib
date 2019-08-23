@@ -150,3 +150,35 @@ When adding carousel articles, if using articles from CodeGib, the url should on
 ## Top 3 on Homepage
 
 The top 3 articles that are featured on the homepage are chosen manually. This can be changed by altering the index route and selecting a new blog to replace the ones currently selected.
+
+
+# Making Adjustments to Carousel Items
+
+### Deleting Items from Carousel
+
+Easiest is to use flask shell for this. For example, let's say we want to delete an item with the id=1.
+
+```
+$ flask shell
+$ to_delete = Carousel.query.filter_by(id=1).first()
+$ db.session.delete(to_delete)
+$ db.session.commit()
+```
+
+### Adding items to Carousel
+
+Again, easiest is to use Flask shell. For example, let's add an item for a CodeGib article named 'How to Scrape Sports Data using Python':
+
+```
+$ flask shell
+$ to_add = Carousel(
+  img_path='img/blogs/ltv_python/main.png',
+  url='How to Scrape Sports Data using Python',
+  title='How to Scrape Sports Data using Python',
+  author='Brandon Kessler',
+  source='CodeGib'
+$ db.session.add(to_add)
+$ db.session.commit()
+```
+
+Note: we use the name of the article for the 'url' since it's a codegib article. Had this been an external article, we would use the actual URL.

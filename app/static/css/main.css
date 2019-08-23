@@ -31,3 +31,8 @@
   padding: 4px;
   border: 1px solid #171B35;
 }
+
+.card-img-top {
+  height: 10em;
+  object-fit: cover;
+}

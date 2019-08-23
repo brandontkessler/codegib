@@ -8,7 +8,7 @@
 
   <div id="carouselExampleCaptions" class="carousel slide mb-4" data-ride="carousel">
     <ol class="carousel-indicators">
-      {% for article in carousel_items %}
+      {% for article in carousel_items[::-1] %}
         {% if loop.index == 1 %}
         <li data-target="#carouselExampleCaptions" data-slide-to="{{ loop.index-1 }}" class="active"></li>
         {% else %}
@@ -17,7 +17,7 @@
       {% endfor %}
     </ol>
     <div class="carousel-inner">
-      {% for article in carousel_items %}
+      {% for article in carousel_items[::-1] %}
         {% if loop.index == 1 %}
         <div class="carousel-item active">
         {% else %}
@@ -48,14 +48,15 @@
     </a>
   </div>
 
+
   <div class="row home-top-3">
     {% for blog in top_3_blogs %}
     <div class="col-md mt-3">
-      <a href="{{ url_for('media.read_blog', blog_title=blog.title) }}" class="card">
+      <a href="{{ blog.url }}" class="card">
         <img src="{{ url_for('static', filename=blog.feature_img_path) }}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">{{ blog.title }}</h5>
-          <p class="card-text">{{ blog.headline }}</p>
+          <small>{{ blog.author }} | {{ blog.source }}</small>
         </div>
       </a>
     </div>
@@ -66,5 +67,5 @@
 
 
 {% block javascript %}
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='js/main.js') }}"></script> -->
 {% endblock %}

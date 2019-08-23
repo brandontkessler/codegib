@@ -13,13 +13,30 @@ def index():
     carousel_items = Carousel.query.all()
 
     # Top 3 blogs
-    blog_title_1 = 'This is the first title to This Blog'
-    blog_title_2 = '5 Blogasdf'
-    blog_title_3 = 'This is my first blog'
+    blog1 = {
+        'title': 'AAARRR! What are Pirate Metrics?',
+        'url': 'https://www.activecampaign.com/blog/aaarrr-what-are-pirate-metrics',
+        'author': 'Jordan Skole',
+        'source': 'ActiveCampaign',
+        'feature_img_path': 'img/carousel/pirate_metrics.png'
+    }
 
-    blog1 = Blog.query.filter_by(title=blog_title_1).first_or_404()
-    blog2 = Blog.query.filter_by(title=blog_title_2).first_or_404()
-    blog3 = Blog.query.filter_by(title=blog_title_3).first_or_404()
+    blog2 = {
+        'title': 'Clustering: Why to Use it',
+        'url': 'https://towardsdatascience.com/clustering-why-to-use-it-16d8e2fbafe',
+        'author': 'Robert Miller',
+        'source': 'Medium',
+        'feature_img_path': 'img/carousel/clustering.png'
+    }
+
+    blog3 = {
+        'title': 'Supervised vs. Unsupervised Learning',
+        'url': 'https://towardsdatascience.com/supervised-vs-unsupervised-learning-14f68e32ea8d',
+        'author': 'Devin Soni',
+        'source': 'Medium',
+        'feature_img_path': 'img/carousel/supervised_vs_unsupervised.gif'
+    }
+
 
     top_3_blogs = blog1, blog2, blog3
 
